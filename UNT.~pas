@@ -15,7 +15,7 @@ type
     edtSenha: TMaskEdit;
     Label1: TLabel;
     Label2: TLabel;
-    qusuario: TADOQuery;
+    qUsuario: TADOQuery;
     procedure Button1Click(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     function loginValido(const usuario, senha: String): Boolean;
@@ -28,6 +28,8 @@ type
 
 var
   frmLogin: TfrmLogin;
+  codigo : integer;
+  nome : string;
 
 implementation
 
@@ -52,6 +54,8 @@ begin
       Parameters.ParamByName('plogin').Value := Trim(usuario);
       Parameters.ParamByName('pSenha').Value := senha;
       Open;
+      codigo :=  Fields[4].AsInteger;
+      nome := Fields[3].AsString;
       Result :=  (Fields[0].AsInteger > 0);
     END;
 end;
@@ -80,7 +84,8 @@ begin
       //
       TRY
         Application.CreateForm(TfrmDesktop, frmdesktop);
-        frmDesktop.s
+        frmDesktop.sbDesktop.Panels[1].Text := IntToStr(codigo);
+        frmDesktop.sbDesktop.Panels[2].Text := nome;
         FreeAndNil(frmLogin); //finaliza o frmLogim
         frmDesktop.ShowModal; //carregando o frmDesktop
       FINALLY

@@ -32,7 +32,7 @@ type
     qFuncionariosespecialidade: TStringField;
     gbPessoal: TGroupBox;
     Label1: TLabel;
-    DBEdit1: TDBEdit;
+    edtId: TDBEdit;
     Label2: TLabel;
     DBEdit2: TDBEdit;
     Label3: TLabel;
@@ -82,25 +82,25 @@ type
     QRSysData1: TQRSysData;
     QRImage1: TQRImage;
     ColumnHeaderBand1: TQRBand;
-    Label19: TLabel;
-    DBEdit18: TDBEdit;
-    Label20: TLabel;
-    DBEdit19: TDBEdit;
-    Label21: TLabel;
-    DBEdit20: TDBEdit;
-    Label23: TLabel;
-    DBEdit22: TDBEdit;
-    Label25: TLabel;
-    DBEdit24: TDBEdit;
-    DBEdit25: TDBEdit;
-    Label26: TLabel;
-    DBEdit23: TDBEdit;
-    Label24: TLabel;
-    DBEdit21: TDBEdit;
-    Label22: TLabel;
     QRLabel2: TQRLabel;
     Label27: TLabel;
     DBMemo1: TDBMemo;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRDBText8: TQRDBText;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
     procedure rgFuncaoChange(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -189,8 +189,20 @@ begin
 end;
 
 procedure TfrmCadPesFuncionario.actimprimirExecute(Sender: TObject);
+var
+  id : integer;
 begin
   inherited;
+  id := StrToInt(edtId.Text);
+  WITH qFuncionarios DO
+    BEGIN
+      Close;
+      SQL.Clear;
+      SQL.Add('SELECT * FROM funcionarios');
+      SQL.Add('WHERE id = :pId');
+      Parameters.ParamByName('pId').Value := id;
+      Open;
+    END;
   qpFuncionario.Preview;
 end;
 

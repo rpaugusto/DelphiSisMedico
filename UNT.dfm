@@ -2,7 +2,7 @@ object frmLogin: TfrmLogin
   Left = 430
   Top = 191
   Width = 395
-  Height = 215
+  Height = 232
   BorderIcons = [biHelp]
   Caption = 'AUTENTICA'#199#195'O DO USUARIO'
   Color = clWindow
@@ -12,6 +12,7 @@ object frmLogin: TfrmLogin
   Font.Name = 'Segoe UI Semibold'
   Font.Style = [fsBold]
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 25
   object logImage: TImage
@@ -4829,6 +4830,16 @@ object frmLogin: TfrmLogin
     Height = 33
     PasswordChar = '*'
     TabOrder = 3
+  end
+  object sbLogin: TStatusBar
+    Left = 0
+    Top = 182
+    Width = 387
+    Height = 19
+    Panels = <
+      item
+        Width = 50
+      end>
   end
   object qUsuario: TADOQuery
     Connection = dmCentral.conecta

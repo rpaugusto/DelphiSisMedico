@@ -4830,7 +4830,7 @@ object frmLogin: TfrmLogin
     PasswordChar = '*'
     TabOrder = 3
   end
-  object qusuario: TADOQuery
+  object qUsuario: TADOQuery
     Connection = dmCentral.conecta
     Parameters = <
       item

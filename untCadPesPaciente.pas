@@ -46,7 +46,7 @@ type
     DBEdit8: TDBEdit;
     DBEdit9: TDBEdit;
     DBEdit10: TDBEdit;
-    DBEdit11: TDBEdit;
+    edtCpfCod: TDBEdit;
     DBEdit12: TDBEdit;
     qHistorico: TADOQuery;
     dsHistorico: TDataSource;
@@ -54,39 +54,59 @@ type
     DBGrid1: TDBGrid;
     qHistoricodata: TStringField;
     qHistoricohora: TStringField;
-    qHistoriconome: TStringField;
     qPessoascpf: TStringField;
     edtCpf: TMaskEdit;
-    qRep: TADOQuery;
-    qRepid: TIntegerField;
-    qRepnome: TStringField;
-    qRependereco: TStringField;
-    qRepbairro: TStringField;
-    qRepcidade: TStringField;
-    qRepestado: TStringField;
-    qRepcep: TStringField;
-    qReptelefone: TStringField;
-    qRepcelular: TStringField;
-    qRepcpf: TStringField;
-    qReprg: TIntegerField;
-    qRepemail: TStringField;
-    qRepcadastrado: TDateTimeField;
-    qRepatualizado: TDateTimeField;
-    qRepsexo: TStringField;
-    qRepdata: TStringField;
-    qRephora: TStringField;
-    qRepmedico: TStringField;
-    qRepconsulta: TStringField;
     qrFicha: TQuickRep;
     PageHeaderBand1: TQRBand;
-    PageFooterBand1: TQRBand;
     QRImage1: TQRImage;
     QRSysData1: TQRSysData;
-    QRSysData2: TQRSysData;
     QRLabel1: TQRLabel;
     qPessoascep: TStringField;
     qPessoastelefone: TStringField;
     qPessoascelular: TStringField;
+    detail: TQRBand;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRDBText7: TQRDBText;
+    QRLabel2: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRDBText8: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRLabel12: TQRLabel;
+    QRDBText10: TQRDBText;
+    QRLabel13: TQRLabel;
+    QRDBText11: TQRDBText;
+    qrSubFicha: TQRSubDetail;
+    QRLabel22: TQRLabel;
+    QRLabel23: TQRLabel;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRDBText12: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    PageFooterBand1: TQRBand;
+    QRLabel26: TQRLabel;
+    QRSysData2: TQRSysData;
+    qHistoricopaciente_id: TIntegerField;
+    qHistoricomedico: TStringField;
+    qHistoricoespecialidade: TStringField;
+    qHistoricoconsulta: TStringField;
+    qHistoricoreceita: TStringField;
+    qHistoricoexame: TStringField;
+    QRDBRichText1: TQRDBRichText;
+    qCodBar: TQRImage;
     procedure edtCodigoChange(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure actPesquisarExecute(Sender: TObject);
@@ -95,6 +115,8 @@ type
     procedure actimprimirExecute(Sender: TObject);
   private
     { Private declarations }
+    procedure codBar(codigo : String; Canvas : TCanvas);
+    function removString(Valor : String): String;
   public
     { Public declarations }
   end;
@@ -116,7 +138,7 @@ begin
       WITH qHistorico DO
         BEGIN
           Close;
-          Parameters.ParamByName('pPaciente').Value := StrToInt(Trim(edtCodigo.Text));
+          Parameters.ParamByName('pId').Value := StrToInt(Trim(edtCodigo.Text));
           Open;
         END;
     END;
@@ -193,21 +215,93 @@ begin
 end;
 
 procedure TfrmCadPesPaciente.actimprimirExecute(Sender: TObject);
+var
+  id : integer;
 begin
   inherited;
   IF edtCodigo.Text = '' THEN
     MessageDlg('Nenhum paciente selecionado',mtInformation,[mbOK],0)
   ELSE
     BEGIN
-      WITH qRep DO
+      id := StrToInt(Trim(edtCodigo.Text));
+      WITH qPessoas DO
         BEGIN
           Close;
-          Parameters.ParamByName('pId').Value := StrToInt(Trim(edtCodigo.Text));
+          SQL.Clear;
+          SQL.Add('SELECT * FROM pessoas WHERE id = :pId');
+          Parameters.ParamByName('pId').Value := id;
           Open;
         END;
-        qrFicha.Preview;
+      WITH qHistorico DO
+        BEGIN
+          Close;
+          SQL.Clear;
+          SQL.Add('SELECT * FROM lsHisPaciente WHERE paciente_id = :pId');
+          Parameters.ParamByName('pId').Value := id;
+          Open;
+        END;
+
+      codBar(removString(Trim(edtCpfCod.Text)),qCodBar.Canvas);
+      qrFicha.Preview;
     END;
 
+end;
+
+procedure TfrmCadPesPaciente.codBar(codigo: String; Canvas: TCanvas);
+const
+  digitos : array['0'..'9']
+    of string[5]= ('00110', '10001', '01001', '11000', '00101', '10100', '01100',
+                   '00011', '10010', '01010');
+var
+  s : string;
+  i, j, x, t : Integer;
+
+begin
+  // início do codigo de barras
+  s := '000000';
+
+  for i := 1 to length(codigo) div 2 do
+    for j := 1 to 5 do
+      s := s + Copy(Digitos[codigo[i * 2 - 1]], j, 1) +
+        Copy(Digitos[codigo[i * 2]], j, 1);
+
+  // fim do codigo de barras
+  s := s + '100';
+
+  { Desenha o codigo de barras dentro do canvas }
+  x := 0;
+  Canvas.Brush.Color := clWhite;
+  Canvas.Pen.Color := clWhite;
+  Canvas.Rectangle(0,0, 2000, 79);
+  Canvas.Brush.Color := clBlack;
+  Canvas.Pen.Color := clBlack;
+  // Escrever o código de barras no canvas
+  for i := 1 to length(s) do
+    begin
+        // Definir a espessura da barra
+        t := strToInt(s[i]) * 2 + 1;
+        // Imprimir apenas barra sim barra não (preto/branco - intercalado);
+        if i mod 2 = 1 then
+          Canvas.Rectangle(x, 0, x + t, 79);
+        // Passar para a próxima barra
+        x := x + t;
+        end;
+end;
+
+
+function TfrmCadPesPaciente.removString(Valor: String): String;
+var
+  new : string;
+  cont : integer;
+begin
+  new := '';
+  FOR cont := 1 TO length(Valor) DO
+    BEGIN
+      IF (valor[cont] <> '.') AND (valor[cont] <> '-')
+         AND (valor[cont] <> ',') AND (valor[cont] <> '/') THEN
+      new := new + valor[cont];
+    END;
+  removString := new;
 end;
 
 end.

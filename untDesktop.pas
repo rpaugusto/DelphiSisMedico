@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, ExtCtrls, ImgList, ComCtrls, ToolWin, Menus, DB,
-  ADODB, ActnList;
+  ADODB, ActnList, StdCtrls, Mask, DBCtrls, Buttons;
 
 type
   TfrmDesktop = class(TForm)
@@ -20,7 +20,7 @@ type
     btnCadPaciente: TToolButton;
     btnAgenda: TToolButton;
     ImageList1: TImageList;
-    Panel1: TPanel;
+    pnAgenda: TPanel;
     DBGrid1: TDBGrid;
     dsDesktop: TDataSource;
     Pacientes1: TMenuItem;
@@ -32,13 +32,27 @@ type
     actFuncionario: TAction;
     actPlano: TAction;
     actAgendamento: TAction;
-    procedure FormCreate(Sender: TObject);
+    qDesktop: TADOQuery;
+    qDesktophora: TStringField;
+    qDesktopnome: TStringField;
+    qDesktopestado: TStringField;
+    qDesktopid: TAutoIncField;
+    edtAgendaId: TDBEdit;
+    btnAtender: TBitBtn;
+    qIdentifica: TADOQuery;
+    actMontAgenda: TAction;
+    MontarAgenda1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Sair1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure actPacienteExecute(Sender: TObject);
     procedure actFuncionarioExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure btnAtenderClick(Sender: TObject);
+    function isMedico (id : integer) : Boolean;
+    procedure FormActivate(Sender: TObject);
+    procedure actMontAgendaExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,25 +61,14 @@ type
 
 var
   frmDesktop: TfrmDesktop;
+  crm : integer;
 
 implementation
 
-uses untDMCentral, untCadPesFuncionario, untCadPesPaciente;
+uses untDMCentral, untCadPesFuncionario, untCadPesPaciente, UnitConsulta,
+  Math, untMontaAgenda;
 
 {$R *.dfm}
-
-procedure TfrmDesktop.FormCreate(Sender: TObject);
-begin
-  {with dmCentral.qAgenda do
-    begin
-      Close;
-      SQL.Clear;
-      sql.Add('SELECT * FROM agenda');
-    end;
-
-  dsDesktop.DataSet.Open;}
-
-end;
 
 procedure TfrmDesktop.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -115,6 +118,71 @@ begin
     FreeAndNil(frmCadPesFuncionario);
   END;
 
+end;
+
+procedure TfrmDesktop.FormCreate(Sender: TObject);
+begin
+  sbDesktop.Panels[0].Text := DateToStr(NOW);
+  qDesktop.Open;
+  {IF (Trim(sbDesktop.Panels[1].Text) <> '' ) THEN
+    BEGIN
+      pnAgenda.Visible := True;
+      qDesktop.Open;
+    END;}
+
+end;
+
+procedure TfrmDesktop.btnAtenderClick(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmConsulta, frmConsulta);
+    frmConsulta.edtConsulta.Text := edtAgendaId.text;
+    frmConsulta.ShowModal;
+  FINALLY
+    FreeAndNil(frmConsulta);
+  END;
+
+
+end;
+
+function TfrmDesktop.isMedico(id: integer): Boolean;
+begin
+  WITH qIdentifica DO
+    BEGIN
+      Close;
+      SQL.Clear;
+      SQL.Add('SELECT COUNT(*), conselho FROM funcionarios');
+      SQL.Add('WHERE id = :pId and funcao = :pFuncao');
+      SQL.Add('GROUP BY conselho');
+      Parameters.ParamByName('pId').Value := id;
+      Parameters.ParamByName('pFuncao').Value := ('MEDICA (O)');
+      Open;
+      crm := (Fields[1].AsInteger);
+      Result :=  (Fields[0].AsInteger > 0);
+    END;
+end;
+
+procedure TfrmDesktop.FormActivate(Sender: TObject);
+begin
+  IF (isMedico(StrToInt(sbDesktop.Panels[1].Text))) THEN
+    WITH qDesktop DO
+      BEGIN
+        close;
+        Parameters.ParamByName('pCrm').Value := crm;
+        Open;
+      END;
+    pnAgenda.Visible := True;
+
+end;
+
+procedure TfrmDesktop.actMontAgendaExecute(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmMontaAgenda, frmMontaAgenda);
+    frmMontaAgenda.ShowModal;
+  FINALLY
+    FreeAndNil(frmMontaAgenda);
+  END;
 end;
 
 end.
