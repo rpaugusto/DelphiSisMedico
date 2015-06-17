@@ -1,8 +1,8 @@
 object frmRelFuncionario: TfrmRelFuncionario
-  Left = 439
-  Top = 22
-  Width = 416
-  Height = 89
+  Left = 160
+  Top = 117
+  Width = 1132
+  Height = 596
   BorderIcons = [biSystemMenu]
   Caption = 'RELAT'#211'RIO GERAL DE FUNCION'#193'RIO:'
   Color = clWindow
@@ -13,13 +13,14 @@ object frmRelFuncionario: TfrmRelFuncionario
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
   Scaled = False
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 408
+    Width = 1124
     Height = 57
     Align = alTop
     TabOrder = 0
@@ -1485,7 +1486,7 @@ object frmRelFuncionario: TfrmRelFuncionario
         object QRSysData1: TQRSysData
           Left = 512
           Top = 8
-          Width = 47
+          Width = 6
           Height = 18
           Frame.Color = clBlack
           Frame.DrawTop = False
@@ -1496,7 +1497,7 @@ object frmRelFuncionario: TfrmRelFuncionario
             47.625000000000000000
             1354.666666666667000000
             21.166666666666670000
-            124.354166666666700000)
+            15.875000000000000000)
           Alignment = taLeftJustify
           AlignToBand = False
           AutoSize = True
@@ -1509,37 +1510,6 @@ object frmRelFuncionario: TfrmRelFuncionario
           Font.Style = [fsBold]
           ParentFont = False
           Transparent = False
-          FontSize = 10
-        end
-        object QRLabel9: TQRLabel
-          Left = 8
-          Top = 16
-          Width = 96
-          Height = 18
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            47.625000000000000000
-            21.166666666666670000
-            42.333333333333330000
-            254.000000000000000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 'SISMEDICO V1.0'
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Segoe UI Semibold'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = False
-          WordWrap = True
           FontSize = 10
         end
       end
@@ -1690,36 +1660,15 @@ object frmRelFuncionario: TfrmRelFuncionario
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
   end
   object qRelFuncionario: TADOQuery
+    Active = True
     Connection = dmCentral.conecta
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from funcionarios')
-    Left = 152
-    Top = 8
-    object qRelFuncionariofuncao: TStringField
-      FieldName = 'funcao'
-      Size = 10
-    end
-    object qRelFuncionarioconselho: TIntegerField
-      FieldName = 'conselho'
-      DisplayFormat = '000000'
-    end
-    object qRelFuncionarioobservacao: TStringField
-      FieldName = 'observacao'
-      Size = 250
-    end
-    object qRelFuncionarioespecialidade: TStringField
-      FieldName = 'especialidade'
-    end
-    object qRelFuncionariologin: TStringField
-      FieldName = 'login'
-      Size = 50
-    end
-    object qRelFuncionariosenha: TStringField
-      FieldName = 'senha'
-      Size = 100
-    end
+      'select * from lsfuncionarios'
+      'order by id')
+    Left = 416
+    Top = 16
     object qRelFuncionarioid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
@@ -1729,57 +1678,35 @@ object frmRelFuncionario: TfrmRelFuncionario
       FieldName = 'nome'
       Size = 100
     end
-    object qRelFuncionarioendereco: TStringField
-      FieldName = 'endereco'
-      Size = 100
-    end
-    object qRelFuncionariobairro: TStringField
-      FieldName = 'bairro'
-    end
-    object qRelFuncionariocidade: TStringField
-      FieldName = 'cidade'
-      Size = 50
-    end
-    object qRelFuncionarioestado: TStringField
-      FieldName = 'estado'
-      FixedChar = True
-      Size = 2
-    end
-    object qRelFuncionariocep: TStringField
-      FieldName = 'cep'
-      Size = 8
-    end
-    object qRelFuncionariotelefone: TStringField
-      FieldName = 'telefone'
-      EditMask = '!\(99\)0000-0000;0;_'
+    object qRelFuncionariofuncao: TStringField
+      FieldName = 'funcao'
+      ReadOnly = True
       Size = 10
+    end
+    object qRelFuncionarioconselho: TIntegerField
+      FieldName = 'conselho'
+      ReadOnly = True
     end
     object qRelFuncionariocelular: TStringField
       FieldName = 'celular'
-      EditMask = '!\(99\)0-0000-0000;0;_'
-      Size = 11
+      ReadOnly = True
+      EditMask = '!\(99\)0-0000-0000;1;_'
+      Size = 14
     end
-    object qRelFuncionariocpf: TStringField
-      FieldName = 'cpf'
-      Size = 11
-    end
-    object qRelFuncionariorg: TIntegerField
-      FieldName = 'rg'
-    end
-    object qRelFuncionarioemail: TStringField
-      FieldName = 'email'
-      Size = 100
+    object qRelFuncionarioestado: TStringField
+      FieldName = 'estado'
+      ReadOnly = True
+      FixedChar = True
+      Size = 2
     end
     object qRelFuncionariocadastrado: TDateTimeField
       FieldName = 'cadastrado'
     end
-    object qRelFuncionarioatualizado: TDateTimeField
-      FieldName = 'atualizado'
-    end
-    object qRelFuncionariosexo: TStringField
-      FieldName = 'sexo'
-      FixedChar = True
-      Size = 1
+    object qRelFuncionariotelefone: TStringField
+      FieldName = 'telefone'
+      ReadOnly = True
+      EditMask = '!\(99\)0000-0000;0;_'
+      Size = 10
     end
   end
 end

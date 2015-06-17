@@ -85,7 +85,7 @@ begin
           WITH qAgenda DO
             BEGIN
               Close;
-              Close;
+              SQL.Clear;
               SQL.Add('SELECT id, conselho, nome FROM funcionarios');
               SQL.Add('WHERE funcao = :pFuncao');
               Parameters.ParamByName('pFuncao').Value := 'MEDICA (O)';
@@ -97,7 +97,7 @@ begin
           WITH qAgenda DO
             BEGIN
               Close;
-              Close;
+              SQL.Clear;
               SQL.Add('SELECT id, conselho, nome FROM funcionarios');
               SQL.Add('WHERE funcao = :pFuncao');
               SQL.Add('AND nome LIKE :pMedico');
@@ -112,6 +112,7 @@ begin
       WITH qAgenda DO
         BEGIN
           Close;
+          SQL.Clear;
           SQL.Add('SELECT id, conselho, nome FROM funcionarios');
           SQL.Add('WHERE funcao = :pFuncao');
           SQL.Add('AND crm = :pCRM');
@@ -139,6 +140,9 @@ var
 begin
   diaini :=  (DateToStr(mes)+' '+edtHoraIni.Text);
   diafim :=  (DateToStr(mes)+' '+edtHoraFim.Text);
+  hIni := StrToTime('00:00');
+  hFim := StrToTime('00:00');
+  hInt := StrToTime('00:00');
 
 IF (ExistAgenda(diaini, diafim, StrToInt(edtCrm.Text))) THEN
   MessageDlg('Medico já possui agenda para esta mês!',mtInformation,[mbOK],1)
@@ -264,6 +268,12 @@ begin
         END;
       dia := IncDay(dia,1);
     END;
+  MessageDlg('Agenda gravada com sucesso!',mtInformation,[mbOK],1);
+  btnGravar.Enabled := false;
+  sgAgenda.ColCount := 0;
+  sgAgenda.RowCount := 0;
+  edtCrm.Text := '';
+  edtMedico.Text := '';
 end;
 
 procedure TfrmMontaAgenda.sgAgendaDrawCell(Sender: TObject; ACol,

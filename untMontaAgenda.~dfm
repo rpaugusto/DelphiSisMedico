@@ -650,8 +650,11 @@ object frmMontaAgenda: TfrmMontaAgenda
         Width = 617
         Height = 393
         Ctl3D = False
+        FixedColor = clInactiveBorder
         ParentCtl3D = False
         TabOrder = 0
+        OnClick = sgAgendaClick
+        OnDrawCell = sgAgendaDrawCell
       end
     end
     object sbAgenda: TStatusBar

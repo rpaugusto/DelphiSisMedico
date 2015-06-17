@@ -5,7 +5,7 @@ object frmAgendar: TfrmAgendar
   BorderStyle = bsSingle
   Caption = 'Agenda'
   ClientHeight = 516
-  ClientWidth = 720
+  ClientWidth = 1049
   Color = clWindow
   Ctl3D = False
   Font.Charset = ANSI_CHARSET

@@ -23,7 +23,6 @@ type
     qFuncionarioscidade: TStringField;
     qFuncionariosestado: TStringField;
     qFuncionarioscep: TIntegerField;
-    qFuncionariostelefone: TIntegerField;
     qFuncionariosrg: TIntegerField;
     qFuncionariosemail: TStringField;
     qFuncionarioscadastrado: TDateTimeField;
@@ -62,7 +61,7 @@ type
     Label13: TLabel;
     DBEdit13: TDBEdit;
     Label14: TLabel;
-    DBEdit14: TDBEdit;
+    edtSenha: TDBEdit;
     rgFuncao: TDBRadioGroup;
     gbMedico: TGroupBox;
     Label15: TLabel;
@@ -78,7 +77,6 @@ type
     qpFuncionario: TQuickRep;
     PageHeaderBand1: TQRBand;
     PageFooterBand1: TQRBand;
-    QRLabel1: TQRLabel;
     QRSysData1: TQRSysData;
     QRImage1: TQRImage;
     ColumnHeaderBand1: TQRBand;
@@ -101,11 +99,23 @@ type
     QRLabel8: TQRLabel;
     QRLabel9: TQRLabel;
     QRLabel10: TQRLabel;
+    QRLabel1: TQRLabel;
+    QRDBText9: TQRDBText;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRDBText10: TQRDBText;
+    QRDBText11: TQRDBText;
+    QRLabel13: TQRLabel;
+    QRDBText12: TQRDBText;
+    QRLabel14: TQRLabel;
+    QRDBRichText1: TQRDBRichText;
+    qFuncionariostelefone: TStringField;
     procedure rgFuncaoChange(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure actPesquisarExecute(Sender: TObject);
     procedure actimprimirExecute(Sender: TObject);
+    procedure actEditarExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -138,7 +148,11 @@ begin
   IF qFuncionarios.Active = false THEN
     qFuncionarios.Active := true;
 
+  IF edtSenha.Enabled = false THEN
+    edtSenha.Enabled := true;
+    
   inherited;
+
 
 end;
 
@@ -204,6 +218,13 @@ begin
       Open;
     END;
   qpFuncionario.Preview;
+end;
+
+procedure TfrmCadPesFuncionario.actEditarExecute(Sender: TObject);
+begin
+  edtSenha.Enabled := false;
+  inherited;
+
 end;
 
 end.

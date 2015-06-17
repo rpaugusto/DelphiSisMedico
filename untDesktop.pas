@@ -42,6 +42,13 @@ type
     qIdentifica: TADOQuery;
     actMontAgenda: TAction;
     MontarAgenda1: TMenuItem;
+    ToolButton1: TToolButton;
+    Infomrao1: TMenuItem;
+    Agendar1: TMenuItem;
+    actRelFuncionario: TAction;
+    actRelPaciente: TAction;
+    ListadePacientes1: TMenuItem;
+    ListadeFuncionarios1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Sair1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -53,6 +60,9 @@ type
     function isMedico (id : integer) : Boolean;
     procedure FormActivate(Sender: TObject);
     procedure actMontAgendaExecute(Sender: TObject);
+    procedure actRelFuncionarioExecute(Sender: TObject);
+    procedure actRelPacienteExecute(Sender: TObject);
+    procedure actAgendamentoExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,7 +76,7 @@ var
 implementation
 
 uses untDMCentral, untCadPesFuncionario, untCadPesPaciente, UnitConsulta,
-  Math, untMontaAgenda;
+  Math, untMontaAgenda, untRelFuncionario, untRelPaciente, unitAgendar;
 
 {$R *.dfm}
 
@@ -155,7 +165,7 @@ begin
       SQL.Add('WHERE id = :pId and funcao = :pFuncao');
       SQL.Add('GROUP BY conselho');
       Parameters.ParamByName('pId').Value := id;
-      Parameters.ParamByName('pFuncao').Value := ('MEDICA (O)');
+      Parameters.ParamByName('pFuncao').Value := ('MED%');
       Open;
       crm := (Fields[1].AsInteger);
       Result :=  (Fields[0].AsInteger > 0);
@@ -182,6 +192,36 @@ begin
     frmMontaAgenda.ShowModal;
   FINALLY
     FreeAndNil(frmMontaAgenda);
+  END;
+end;
+
+procedure TfrmDesktop.actRelFuncionarioExecute(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmRelFuncionario, frmRelFuncionario);
+    frmRelFuncionario.ShowModal;
+  FINALLY
+    FreeAndNil(frmRelFuncionario);
+  END;
+end;
+
+procedure TfrmDesktop.actRelPacienteExecute(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmRelPaciente, frmRelPaciente);
+    frmRelPaciente.ShowModal;
+  FINALLY
+    FreeAndNil(frmRelPaciente);
+  END;
+end;
+
+procedure TfrmDesktop.actAgendamentoExecute(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmAgendar, frmAgendar);
+    frmAgendar.ShowModal;
+  FINALLY
+    FreeAndNil(frmAgendar);
   END;
 end;
 

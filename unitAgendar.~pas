@@ -198,6 +198,9 @@ begin
   with qBuscaAgenda do
     begin
       close;
+        sql.Clear;
+        sql.Add('exec buscaAgenda @conselho = :pCrm');
+        sql.Add('@datainicio = :pdatainicio, @datafim = :Pdatafim');
         Parameters.ParamByName('pCrm').Value := crm;
         Parameters.ParamByName('pDataInicio').Value := (data + ' 00:00');
         Parameters.ParamByName('pDataFim').Value:= (data + ' 23:59');

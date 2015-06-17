@@ -1,6 +1,6 @@
 object frmDesktop: TfrmDesktop
-  Left = 179
-  Top = 22
+  Left = 254
+  Top = 25
   Width = 1024
   Height = 700
   BorderIcons = [biSystemMenu]
@@ -67,8 +67,16 @@ object frmDesktop: TfrmDesktop
       Caption = 'btnAgenda'
       ImageIndex = 1
     end
-    object btnSair: TToolButton
+    object ToolButton1: TToolButton
       Left = 142
+      Top = 2
+      Width = 803
+      Caption = 'ToolButton1'
+      ImageIndex = 3
+      Style = tbsSeparator
+    end
+    object btnSair: TToolButton
+      Left = 945
       Top = 2
       Caption = 'btnSair'
       ImageIndex = 2
@@ -127,9 +135,9 @@ object frmDesktop: TfrmDesktop
       TabOrder = 1
     end
     object btnAtender: TBitBtn
-      Left = 72
+      Left = 0
       Top = 2
-      Width = 445
+      Width = 517
       Height = 44
       Caption = 'ATENDER PACIENTE'
       Font.Charset = ANSI_CHARSET
@@ -261,12 +269,24 @@ object frmDesktop: TfrmDesktop
       object MontarAgenda1: TMenuItem
         Action = actMontAgenda
       end
+      object Agendar1: TMenuItem
+        Action = actAgendamento
+      end
     end
     object Relatrio1: TMenuItem
       Caption = '&Relat'#243'rio'
+      object ListadePacientes1: TMenuItem
+        Action = actRelPaciente
+      end
+      object ListadeFuncionarios1: TMenuItem
+        Action = actRelFuncionario
+      end
     end
     object Sobre1: TMenuItem
       Caption = '&Sobre'
+      object Infomrao1: TMenuItem
+        Caption = 'Infomra'#231#227'o'
+      end
     end
     object Sair1: TMenuItem
       Caption = 'Sai&r'
@@ -2408,24 +2428,33 @@ object frmDesktop: TfrmDesktop
     Left = 368
     Top = 16
     object actPaciente: TAction
-      Caption = 'actPaciente'
+      Caption = 'Paciente'
       ImageIndex = 0
       OnExecute = actPacienteExecute
     end
     object actFuncionario: TAction
-      Caption = 'actFuncionario'
+      Caption = 'Funcionario'
       OnExecute = actFuncionarioExecute
     end
     object actPlano: TAction
-      Caption = 'actPlano'
+      Caption = 'Plano'
     end
     object actAgendamento: TAction
       Caption = 'Agendamento'
       ImageIndex = 1
+      OnExecute = actAgendamentoExecute
     end
     object actMontAgenda: TAction
       Caption = 'Montar Agenda'
       OnExecute = actMontAgendaExecute
+    end
+    object actRelFuncionario: TAction
+      Caption = 'Lista de Funcionarios'
+      OnExecute = actRelFuncionarioExecute
+    end
+    object actRelPaciente: TAction
+      Caption = 'Lista de Pacientes'
+      OnExecute = actRelPacienteExecute
     end
   end
   object qDesktop: TADOQuery

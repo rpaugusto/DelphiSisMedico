@@ -1,8 +1,8 @@
 object frmReceita: TfrmReceita
-  Left = 141
-  Top = 146
-  Width = 760
-  Height = 485
+  Left = 311
+  Top = 94
+  Width = 752
+  Height = 423
   Caption = 'Receituario'
   Color = clWindow
   Ctl3D = False
@@ -20,79 +20,79 @@ object frmReceita: TfrmReceita
     Left = 8
     Top = 8
     Width = 729
-    Height = 201
-    Caption = 'Medicamento:  '
+    Height = 145
+    Caption = 'ADICIONAR MEDICAMENTO     '
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -24
+    Font.Height = -16
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
     TabOrder = 0
     object Label1: TLabel
       Left = 8
-      Top = 40
-      Width = 100
-      Height = 32
-      Caption = 'Rem'#233'dio:'
+      Top = 27
+      Width = 115
+      Height = 21
+      Caption = 'MEDICAMENTO'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -24
-      Font.Name = 'Segoe UI'
-      Font.Style = []
+      Font.Height = -16
+      Font.Name = 'Segoe UI Semibold'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     object Label2: TLabel
       Left = 8
-      Top = 112
-      Width = 151
-      Height = 32
-      Caption = 'Forma de uso:'
+      Top = 82
+      Width = 146
+      Height = 21
+      Caption = 'INDICA'#199#195'O DE USO'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -24
-      Font.Name = 'Segoe UI'
-      Font.Style = []
+      Font.Height = -16
+      Font.Name = 'Segoe UI Semibold'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     object Label3: TLabel
       Left = 488
-      Top = 40
-      Width = 58
-      Height = 32
-      Caption = 'Qtde:'
+      Top = 27
+      Width = 37
+      Height = 21
+      Caption = 'Qtde'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -24
-      Font.Name = 'Segoe UI'
-      Font.Style = []
+      Font.Height = -16
+      Font.Name = 'Segoe UI Semibold'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     object edtMedicamento: TEdit
       Left = 8
-      Top = 72
-      Width = 473
-      Height = 38
+      Top = 48
+      Width = 478
+      Height = 27
       TabOrder = 0
     end
     object edtQtd: TEdit
       Left = 488
-      Top = 72
+      Top = 48
       Width = 73
-      Height = 38
+      Height = 27
       TabOrder = 1
     end
     object edtRecomenda: TEdit
       Left = 8
-      Top = 144
+      Top = 103
       Width = 554
-      Height = 38
+      Height = 27
       TabOrder = 2
     end
   end
   object DBGrid1: TDBGrid
     Left = 8
-    Top = 216
+    Top = 160
     Width = 729
     Height = 225
     Options = [dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
@@ -125,9 +125,9 @@ object frmReceita: TfrmReceita
   end
   object btnGravar: TBitBtn
     Left = 576
-    Top = 32
+    Top = 24
     Width = 153
-    Height = 50
+    Height = 41
     Caption = 'Gravar'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -197,9 +197,9 @@ object frmReceita: TfrmReceita
   end
   object btnImprimir: TBitBtn
     Left = 576
-    Top = 88
+    Top = 64
     Width = 153
-    Height = 50
+    Height = 41
     Caption = 'Imprimir'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -311,9 +311,9 @@ object frmReceita: TfrmReceita
   end
   object btnFechar: TBitBtn
     Left = 576
-    Top = 144
+    Top = 104
     Width = 153
-    Height = 50
+    Height = 41
     Caption = 'Fechar'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -382,15 +382,15 @@ object frmReceita: TfrmReceita
       65F36465F36465F36465F26464F26464F26160F29796F6FFFFFF}
   end
   object Panel1: TPanel
-    Left = 744
-    Top = 8
-    Width = 809
+    Left = 760
+    Top = 24
+    Width = 865
     Height = 825
     Caption = 'Panel1'
     TabOrder = 5
     Visible = False
     object repReceitas: TQuickRep
-      Left = 8
+      Left = 16
       Top = 8
       Width = 794
       Height = 1123
@@ -400,10 +400,10 @@ object frmReceita: TfrmReceita
       Frame.DrawLeft = False
       Frame.DrawRight = False
       DataSet = qLsReceita
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Arial'
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
       Font.Style = []
       Functions.Strings = (
         'PAGENUMBER'
@@ -418,12 +418,12 @@ object frmReceita: TfrmReceita
       Page.Orientation = poPortrait
       Page.PaperSize = A4
       Page.Values = (
-        100.000000000000000000
+        100.012500000000000000
         2970.000000000000000000
-        100.000000000000000000
+        100.012500000000000000
         2100.000000000000000000
-        100.000000000000000000
-        100.000000000000000000
+        100.012500000000000000
+        100.012500000000000000
         0.000000000000000000)
       PrinterSettings.Copies = 1
       PrinterSettings.Duplex = False
@@ -25109,196 +25109,37 @@ object frmReceita: TfrmReceita
           Transparent = False
           FontSize = 10
         end
-      end
-      object ColumnHeaderBand1: TQRBand
-        Left = 38
-        Top = 161
-        Width = 718
-        Height = 80
-        Frame.Color = clBlack
-        Frame.DrawTop = False
-        Frame.DrawBottom = False
-        Frame.DrawLeft = False
-        Frame.DrawRight = False
-        AlignToBottom = False
-        Color = clWhite
-        ForceNewColumn = False
-        ForceNewPage = False
-        Size.Values = (
-          211.666666666666700000
-          1899.708333333333000000)
-        BandType = rbColumnHeader
-        object QRLabel2: TQRLabel
-          Left = 8
-          Top = 8
-          Width = 40
-          Height = 18
+        object QRLabel11: TQRLabel
+          Left = 573
+          Top = 88
+          Width = 70
+          Height = 22
           Frame.Color = clBlack
           Frame.DrawTop = False
           Frame.DrawBottom = False
           Frame.DrawLeft = False
           Frame.DrawRight = False
           Size.Values = (
-            47.625000000000000000
-            21.166666666666670000
-            21.166666666666670000
-            105.833333333333300000)
+            58.208333333333330000
+            1516.062500000000000000
+            232.833333333333300000
+            185.208333333333300000)
           Alignment = taLeftJustify
           AlignToBand = False
           AutoSize = True
           AutoStretch = False
-          Caption = 'NOME'
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Segoe UI'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
-        end
-        object QRDBText2: TQRDBText
-          Left = 8
-          Top = 40
-          Width = 50
-          Height = 17
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            44.979166666666670000
-            21.166666666666670000
-            105.833333333333300000
-            132.291666666666700000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Color = clWhite
-          DataSet = qLsReceita
-          DataField = 'paciente'
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel6: TQRLabel
-          Left = 0
-          Top = 208
-          Width = 715
-          Height = 17
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            44.979166666666670000
-            0.000000000000000000
-            550.333333333333300000
-            1891.770833333333000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 
-            '________________________________________________________________' +
-            '______________________________________'
+          Caption = 'EMISS'#195'O:'
           Color = clWhite
           Transparent = False
           WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel8: TQRLabel
-          Left = 0
-          Top = 208
-          Width = 715
-          Height = 17
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            44.979166666666670000
-            0.000000000000000000
-            550.333333333333300000
-            1891.770833333333000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 
-            '________________________________________________________________' +
-            '______________________________________'
-          Color = clWhite
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel9: TQRLabel
-          Left = 0
-          Top = 208
-          Width = 715
-          Height = 17
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            44.979166666666670000
-            0.000000000000000000
-            550.333333333333300000
-            1891.770833333333000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 
-            '________________________________________________________________' +
-            '______________________________________'
-          Color = clWhite
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel10: TQRLabel
-          Left = 0
-          Top = 64
-          Width = 715
-          Height = 17
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            44.979166666666670000
-            0.000000000000000000
-            169.333333333333300000
-            1891.770833333333000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 
-            '________________________________________________________________' +
-            '______________________________________'
-          Color = clWhite
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
+          FontSize = 12
         end
       end
       object DetailBand1: TQRBand
         Left = 38
-        Top = 241
+        Top = 233
         Width = 718
-        Height = 176
+        Height = 64
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
@@ -25309,24 +25150,24 @@ object frmReceita: TfrmReceita
         ForceNewColumn = False
         ForceNewPage = False
         Size.Values = (
-          465.666666666666700000
+          169.333333333333300000
           1899.708333333333000000)
         BandType = rbDetail
         object QRDBText3: TQRDBText
-          Left = 336
-          Top = 64
-          Width = 26
-          Height = 18
+          Left = 632
+          Top = 8
+          Width = 32
+          Height = 22
           Frame.Color = clBlack
           Frame.DrawTop = False
           Frame.DrawBottom = False
           Frame.DrawLeft = False
           Frame.DrawRight = False
           Size.Values = (
-            47.625000000000000000
-            889.000000000000000000
-            169.333333333333300000
-            68.791666666666670000)
+            58.208333333333330000
+            1672.166666666667000000
+            21.166666666666670000
+            84.666666666666670000)
           Alignment = taLeftJustify
           AlignToBand = False
           AutoSize = True
@@ -25336,116 +25177,23 @@ object frmReceita: TfrmReceita
           DataField = 'qtde'
           Transparent = False
           WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel5: TQRLabel
-          Left = 8
-          Top = 24
-          Width = 59
-          Height = 18
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            47.625000000000000000
-            21.166666666666670000
-            63.500000000000000000
-            156.104166666666700000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 'REM'#201'DIO'
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Segoe UI'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel4: TQRLabel
-          Left = 336
-          Top = 24
-          Width = 87
-          Height = 18
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            47.625000000000000000
-            889.000000000000000000
-            63.500000000000000000
-            230.187500000000000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 'QUANTIDADE'
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Segoe UI'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel7: TQRLabel
-          Left = 8
-          Top = 112
-          Width = 109
-          Height = 18
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            47.625000000000000000
-            21.166666666666670000
-            296.333333333333300000
-            288.395833333333300000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 'RECOMENDA'#199#195'O'
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Segoe UI'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
+          FontSize = 12
         end
         object QRDBText1: TQRDBText
           Left = 8
-          Top = 64
-          Width = 79
-          Height = 17
+          Top = 8
+          Width = 96
+          Height = 22
           Frame.Color = clBlack
           Frame.DrawTop = False
           Frame.DrawBottom = False
           Frame.DrawLeft = False
           Frame.DrawRight = False
           Size.Values = (
-            44.979166666666670000
+            58.208333333333330000
             21.166666666666670000
-            169.333333333333300000
-            209.020833333333300000)
+            21.166666666666670000
+            254.000000000000000000)
           Alignment = taLeftJustify
           AlignToBand = False
           AutoSize = True
@@ -25455,23 +25203,23 @@ object frmReceita: TfrmReceita
           DataField = 'medicamento'
           Transparent = False
           WordWrap = True
-          FontSize = 10
+          FontSize = 12
         end
         object QRDBText4: TQRDBText
           Left = 8
-          Top = 147
-          Width = 86
-          Height = 17
+          Top = 35
+          Width = 103
+          Height = 22
           Frame.Color = clBlack
           Frame.DrawTop = False
           Frame.DrawBottom = False
           Frame.DrawLeft = False
           Frame.DrawRight = False
           Size.Values = (
-            44.979166666666670000
+            58.208333333333330000
             21.166666666666670000
-            388.937500000000000000
-            227.541666666666700000)
+            92.604166666666670000
+            272.520833333333300000)
           Alignment = taLeftJustify
           AlignToBand = False
           AutoSize = True
@@ -25481,41 +25229,14 @@ object frmReceita: TfrmReceita
           DataField = 'recomendacao'
           Transparent = False
           WordWrap = True
-          FontSize = 10
-        end
-        object QRLabel3: TQRLabel
-          Left = 0
-          Top = 160
-          Width = 715
-          Height = 17
-          Frame.Color = clBlack
-          Frame.DrawTop = False
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Size.Values = (
-            44.979166666666670000
-            0.000000000000000000
-            423.333333333333300000
-            1891.770833333333000000)
-          Alignment = taLeftJustify
-          AlignToBand = False
-          AutoSize = True
-          AutoStretch = False
-          Caption = 
-            '________________________________________________________________' +
-            '______________________________________'
-          Color = clWhite
-          Transparent = False
-          WordWrap = True
-          FontSize = 10
+          FontSize = 12
         end
       end
       object PageFooterBand1: TQRBand
         Left = 38
-        Top = 417
+        Top = 297
         Width = 718
-        Height = 40
+        Height = 136
         Frame.Color = clBlack
         Frame.DrawTop = False
         Frame.DrawBottom = False
@@ -25526,13 +25247,13 @@ object frmReceita: TfrmReceita
         ForceNewColumn = False
         ForceNewPage = False
         Size.Values = (
-          105.833333333333300000
+          359.833333333333300000
           1899.708333333333000000)
         BandType = rbPageFooter
-        object QRSysData4: TQRSysData
-          Left = 710
-          Top = 22
-          Width = 8
+        object QRDBText5: TQRDBText
+          Left = 264
+          Top = 64
+          Width = 52
           Height = 22
           Frame.Color = clBlack
           Frame.DrawTop = False
@@ -25541,31 +25262,147 @@ object frmReceita: TfrmReceita
           Frame.DrawRight = False
           Size.Values = (
             58.208333333333330000
-            1878.541666666667000000
-            58.208333333333330000
-            21.166666666666670000)
-          Alignment = taRightJustify
-          AlignToBand = True
+            698.500000000000000000
+            169.333333333333300000
+            137.583333333333300000)
+          Alignment = taLeftJustify
+          AlignToBand = False
           AutoSize = True
+          AutoStretch = False
           Color = clWhite
-          Data = qrsPageNumber
+          DataSet = qLsReceita
+          DataField = 'medico'
+          Transparent = False
+          WordWrap = True
+          FontSize = 12
+        end
+        object QRDBText6: TQRDBText
+          Left = 264
+          Top = 88
+          Width = 28
+          Height = 22
+          Frame.Color = clBlack
+          Frame.DrawTop = False
+          Frame.DrawBottom = False
+          Frame.DrawLeft = False
+          Frame.DrawRight = False
+          Size.Values = (
+            58.208333333333330000
+            698.500000000000000000
+            232.833333333333300000
+            74.083333333333330000)
+          Alignment = taLeftJustify
+          AlignToBand = False
+          AutoSize = True
+          AutoStretch = False
+          Color = clWhite
+          DataSet = qLsReceita
+          DataField = 'crm'
+          Transparent = False
+          WordWrap = True
+          FontSize = 12
+        end
+        object QRShape1: TQRShape
+          Left = 224
+          Top = 48
+          Width = 225
+          Height = 25
+          Frame.Color = clBlack
+          Frame.DrawTop = False
+          Frame.DrawBottom = False
+          Frame.DrawLeft = False
+          Frame.DrawRight = False
+          Size.Values = (
+            66.145833333333330000
+            592.666666666666700000
+            127.000000000000000000
+            595.312500000000000000)
+          Shape = qrsHorLine
+        end
+      end
+      object TitleBand1: TQRBand
+        Left = 38
+        Top = 161
+        Width = 718
+        Height = 72
+        Frame.Color = clBlack
+        Frame.DrawTop = False
+        Frame.DrawBottom = False
+        Frame.DrawLeft = False
+        Frame.DrawRight = False
+        AlignToBottom = False
+        Color = clWhite
+        ForceNewColumn = False
+        ForceNewPage = False
+        Size.Values = (
+          190.500000000000000000
+          1899.708333333333000000)
+        BandType = rbTitle
+        object QRLabel2: TQRLabel
+          Left = 8
+          Top = 8
+          Width = 73
+          Height = 22
+          Frame.Color = clBlack
+          Frame.DrawTop = False
+          Frame.DrawBottom = False
+          Frame.DrawLeft = False
+          Frame.DrawRight = False
+          Size.Values = (
+            58.208333333333330000
+            21.166666666666670000
+            21.166666666666670000
+            193.145833333333300000)
+          Alignment = taLeftJustify
+          AlignToBand = False
+          AutoSize = True
+          AutoStretch = False
+          Caption = 'PACIENTE'
+          Color = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Segoe UI'
+          Font.Height = -16
+          Font.Name = 'Segoe UI Semibold'
           Font.Style = [fsBold]
           ParentFont = False
           Transparent = False
-          FontSize = 10
+          WordWrap = True
+          FontSize = 12
+        end
+        object QRDBText2: TQRDBText
+          Left = 8
+          Top = 32
+          Width = 59
+          Height = 22
+          Frame.Color = clBlack
+          Frame.DrawTop = False
+          Frame.DrawBottom = False
+          Frame.DrawLeft = False
+          Frame.DrawRight = False
+          Size.Values = (
+            58.208333333333330000
+            21.166666666666670000
+            84.666666666666670000
+            156.104166666666700000)
+          Alignment = taLeftJustify
+          AlignToBand = False
+          AutoSize = True
+          AutoStretch = False
+          Color = clWhite
+          DataSet = qLsReceita
+          DataField = 'paciente'
+          Transparent = False
+          WordWrap = True
+          FontSize = 12
         end
       end
     end
   end
   object edtConsulta: TEdit
-    Left = 352
-    Top = 80
+    Left = 776
+    Top = 32
     Width = 137
-    Height = 38
+    Height = 27
     TabOrder = 6
     Visible = False
   end
@@ -25602,7 +25439,6 @@ object frmReceita: TfrmReceita
     end
   end
   object qLsReceita: TADOQuery
-    Active = True
     Connection = dmCentral.conecta
     CursorType = ctStatic
     Parameters = <>

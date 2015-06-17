@@ -12,6 +12,7 @@ object frmConsulta: TfrmConsulta
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 21
   object pnConsulta: TPanel
@@ -68,8 +69,8 @@ object frmConsulta: TfrmConsulta
       Font.Style = []
       ParentFont = False
       TabOrder = 1
-      object mDiagnostico: TDBMemo
-        Left = 6
+      object mDiagnostico: TMemo
+        Left = 8
         Top = 26
         Width = 763
         Height = 305
@@ -1299,7 +1300,6 @@ object frmConsulta: TfrmConsulta
       Height = 27
       Enabled = False
       TabOrder = 5
-      OnChange = edtConsultaChange
     end
   end
   object pnHistorico: TPanel

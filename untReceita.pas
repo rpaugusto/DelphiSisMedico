@@ -24,19 +24,12 @@ type
     edtRecomenda: TEdit;
     repReceitas: TQuickRep;
     PageHeaderBand1: TQRBand;
-    ColumnHeaderBand1: TQRBand;
     DetailBand1: TQRBand;
     PageFooterBand1: TQRBand;
     QRLabel1: TQRLabel;
-    QRLabel2: TQRLabel;
     QRDBText3: TQRDBText;
     QRImage1: TQRImage;
     QRSysData3: TQRSysData;
-    QRSysData4: TQRSysData;
-    QRLabel5: TQRLabel;
-    QRLabel4: TQRLabel;
-    QRDBText2: TQRDBText;
-    QRLabel7: TQRLabel;
     dsReceita: TDataSource;
     qReceitas: TADOQuery;
     qReceitasid: TAutoIncField;
@@ -56,11 +49,13 @@ type
     qLsReceitaconsulta: TIntegerField;
     QRDBText1: TQRDBText;
     QRDBText4: TQRDBText;
-    QRLabel3: TQRLabel;
-    QRLabel6: TQRLabel;
-    QRLabel8: TQRLabel;
-    QRLabel9: TQRLabel;
-    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    TitleBand1: TQRBand;
+    QRLabel2: TQRLabel;
+    QRDBText2: TQRDBText;
+    QRDBText5: TQRDBText;
+    QRDBText6: TQRDBText;
+    QRShape1: TQRShape;
     procedure FormCreate(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
@@ -110,7 +105,6 @@ begin
     Close;
     sql.Clear;
     sql.Add('(select * from receitas)');
-
     Open;
   end;
 
@@ -133,5 +127,18 @@ procedure TfrmReceita.btnFecharClick(Sender: TObject);
 begin
   close;
 end;
+
+{procedure TfrmReceita.verReceita(consulta: Integer);
+begin
+  WITH qReceitas DO
+    BEGIN
+      Close;
+      SQL.Add('SELECT * FROM receitass');
+      SQL.Add('WHERE consulta_id = :pConsulta');
+      Parameters.ParamByName('pConsulta').Value := consulta;
+      Open;
+    END;
+
+end;}
 
 end.

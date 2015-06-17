@@ -78,7 +78,6 @@ type
     qpFuncionario: TQuickRep;
     PageHeaderBand1: TQRBand;
     PageFooterBand1: TQRBand;
-    QRLabel1: TQRLabel;
     QRSysData1: TQRSysData;
     QRImage1: TQRImage;
     ColumnHeaderBand1: TQRBand;
@@ -101,6 +100,16 @@ type
     QRLabel8: TQRLabel;
     QRLabel9: TQRLabel;
     QRLabel10: TQRLabel;
+    QRLabel1: TQRLabel;
+    QRDBText9: TQRDBText;
+    QRLabel11: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRDBText10: TQRDBText;
+    QRDBText11: TQRDBText;
+    QRLabel13: TQRLabel;
+    QRDBText12: TQRDBText;
+    QRLabel14: TQRLabel;
+    QRDBRichText1: TQRDBRichText;
     procedure rgFuncaoChange(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);

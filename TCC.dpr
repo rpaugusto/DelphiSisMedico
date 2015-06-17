@@ -9,7 +9,12 @@ uses
   untDMCentral in 'untDMCentral.pas' {dmCentral: TDataModule},
   UNT in 'UNT.pas' {frmLogin},
   UnitConsulta in 'UnitConsulta.pas' {frmConsulta},
-  untMontaAgenda in 'untMontaAgenda.pas' {frmMontaAgenda};
+  untMontaAgenda in 'untMontaAgenda.pas' {frmMontaAgenda},
+  unitAgendar in 'unitAgendar.pas' {frmAgendar},
+  untReceita in 'untReceita.pas' {frmReceita},
+  untRelFuncionario in 'untRelFuncionario.pas' {frmRelFuncionario},
+  untRelPaciente in 'untRelPaciente.pas' {frmRelPaciente},
+  untExame in 'untExame.pas' {frmExame};
 
 {$R *.res}
 

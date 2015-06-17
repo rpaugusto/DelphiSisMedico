@@ -9,6 +9,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
   TextHeight = 17
   inherited pgPadrao: TPageControl
     Height = 544
+    ActivePage = tbCadastro
     inherited tbPesquisa: TTabSheet
       inherited gbCondicao: TGroupBox
         inherited cbCondicao: TComboBox
