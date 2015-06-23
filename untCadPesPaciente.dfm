@@ -1,6 +1,7 @@
 inherited frmCadPesPaciente: TfrmCadPesPaciente
-  Left = 323
-  Top = 114
+  Left = 309
+  Top = 85
+  Width = 782
   Height = 594
   Caption = 'FORMULARIO DE CADASTRO E PESQUISA DE PACIENTES'
   OldCreateOrder = True
@@ -8,6 +9,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
   PixelsPerInch = 96
   TextHeight = 17
   inherited pgPadrao: TPageControl
+    Width = 774
     Height = 544
     ActivePage = tbCadastro
     inherited tbPesquisa: TTabSheet
@@ -64,6 +66,9 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
       end
     end
     inherited tbCadastro: TTabSheet
+      inherited pMenu: TPanel
+        Width = 766
+      end
       object gbPessoal: TGroupBox
         Left = 2
         Top = 59
@@ -261,7 +266,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
           TabOrder = 2
         end
         object DBEdit8: TDBEdit
-          Left = 442
+          Left = 450
           Top = 75
           Width = 320
           Height = 23
@@ -351,8 +356,8 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
         end
       end
       object qrFicha: TQuickRep
-        Left = 776
-        Top = 64
+        Left = 760
+        Top = -200
         Width = 794
         Height = 1123
         Frame.Color = clBlack
@@ -6175,6 +6180,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
   end
   inherited StatusBar1: TStatusBar
     Top = 544
+    Width = 774
   end
   inherited dspadrao: TDataSource
     DataSet = qPessoas
@@ -6268,9 +6274,18 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
         Value = Null
       end>
     SQL.Strings = (
-      'SELECT * FROM lsHisPaciente'
-      'WHERE paciente_id = :pId'
-      'order by data, hora')
+      'select convert(varchar, a.datahora, 103) data, '
+      'convert(varchar(5), datahora, 108) hora,'
+      'UPPER(f.nome) medico, a.paciente_id,f.especialidade, '
+      'UPPER(ISNULL(c.diagnostico, '#39'CONSULTA N'#194'O REALIZADA'#39')) consulta,'
+      'UPPER(ISNULL(r.medicamento, '#39'SEM RECEITA'#39')) receita,'
+      'UPPER(ISNULL(e.exame, '#39'SEM EXAMES'#39')) exame from agenda a '
+      'inner join consultas c on c.agenda_id = a.id '
+      'inner join funcionarios f on f.id = a.funcionario_id '
+      'left join receitas r on r.consulta_id = c.agenda_id'
+      'left join exames e on e.consulta_id = c.agenda_id'
+      'where a.paciente_id = :pId'
+      'order by data, hora, medico ')
     Left = 700
     Top = 60
     object qHistoricodata: TStringField

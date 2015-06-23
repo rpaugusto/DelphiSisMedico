@@ -1,5 +1,6 @@
 object dmCentral: TdmCentral
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Left = 865
   Top = 184
   Height = 207
@@ -8,7 +9,7 @@ object dmCentral: TdmCentral
     Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=sql2005;Persist Security Info=True;' +
-      'User ID=sql;Initial Catalog=Q114medico;Data Source=THOR\SQLEXPRE' +
+      'User ID=SQL;Initial Catalog=Q114medico;Data Source=THOR\SQLEXPRE' +
       'SS'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'

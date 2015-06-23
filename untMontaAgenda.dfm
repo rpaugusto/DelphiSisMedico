@@ -654,6 +654,7 @@ object frmMontaAgenda: TfrmMontaAgenda
         ParentCtl3D = False
         TabOrder = 0
         OnClick = sgAgendaClick
+        OnDblClick = sgAgendaDblClick
         OnDrawCell = sgAgendaDrawCell
       end
     end

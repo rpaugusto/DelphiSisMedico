@@ -49,6 +49,7 @@ type
     procedure sgAgendaDrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
     procedure sgAgendaClick(Sender: TObject);
+    procedure sgAgendaDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,9 +69,9 @@ uses untDMCentral, DateUtils;
 
 procedure TfrmMontaAgenda.dbLisMedicoDblClick(Sender: TObject);
 begin
-  edtCrm.Text := IntToStr(qAgenda.Fields[1].AsInteger);
-  edtMedico.Text := qAgenda.Fields[2].AsString;
-  id := qAgenda.Fields[0].AsInteger;
+  edtCrm.Text := IntToStr(qAgenda.Fields[0].AsInteger);
+  edtMedico.Text := qAgenda.Fields[1].AsString;
+  id := qAgenda.Fields[3].AsInteger;
   //edtCrm.Enabled := false;
   //edtMedico.Enabled := false;
   dbLisMedico.Visible := false;
@@ -78,17 +79,16 @@ end;
 
 procedure TfrmMontaAgenda.SpeedButton2Click(Sender: TObject);
 begin
-  IF (edtCrm.Text = '' ) THEN
-    BEGIN
+  //IF (edtCrm.Text = '' ) THEN
+   // BEGIN
       IF (edtMedico.Text = '' ) THEN
         BEGIN
           WITH qAgenda DO
             BEGIN
               Close;
               SQL.Clear;
-              SQL.Add('SELECT id, conselho, nome FROM funcionarios');
-              SQL.Add('WHERE funcao = :pFuncao');
-              Parameters.ParamByName('pFuncao').Value := 'MEDICA (O)';
+              SQL.Add('exec buscaFunc @nome = :pNome');
+              Parameters.ParamByName('pNome').Value := '';
               Open;
             END;
         END
@@ -98,16 +98,13 @@ begin
             BEGIN
               Close;
               SQL.Clear;
-              SQL.Add('SELECT id, conselho, nome FROM funcionarios');
-              SQL.Add('WHERE funcao = :pFuncao');
-              SQL.Add('AND nome LIKE :pMedico');
-              Parameters.ParamByName('pMedico').Value := edtMedico.Text;
-              Parameters.ParamByName('pFuncao').Value := 'MEDICA (O)';
+              SQL.Add('exec buscaFunc @nome = :pNome');
+              Parameters.ParamByName('pNome').Value := edtMedico.Text;
               Open;
             END;
         END;
-    END
-  ELSE
+    //END
+  {ELSE
     BEGIN
       WITH qAgenda DO
         BEGIN
@@ -120,7 +117,7 @@ begin
           Parameters.ParamByName('pFuncao').Value := 'MEDICA (O)';
           Open;
         END;
-    END;
+    END;}
 
   dbLisMedico.Visible := true;
 
@@ -311,8 +308,34 @@ begin
     end;
 
     if (col <> 0) and (lin <> 0) then
-      sgAgenda.Cells[col,lin] := 'BLOQ';
+      sgAgenda.Cells[col,lin] := 'BLOQ'
+    else if (col <> 0) and (lin <> 0) then
+      sgAgenda.Cells[col,lin] := 'LIV';
+
 
 end;
+
+procedure TfrmMontaAgenda.sgAgendaDblClick(Sender: TObject);
+var
+  pt : TPoint;
+begin
+  {capturando a posição do mouse ao clicar no sg}
+  GetCursorPos(pt);
+  pt := sgAgenda.ScreenToClient(pt);
+  if (PtInRect(sgAgenda.ClientRect, pt)) then
+    sgAgenda.MouseToCell(pt.X, pt.Y, col, lin)
+  else
+    begin
+      col := -1;
+      lin := -1;
+    end;
+
+    if (col <> 0) and (lin <> 0) then
+      sgAgenda.Cells[col,lin] := 'LIV';
+
+
+end;
+
+
 
 end.

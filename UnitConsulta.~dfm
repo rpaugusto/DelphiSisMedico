@@ -886,6 +886,7 @@ object frmConsulta: TfrmConsulta
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
         Layout = blGlyphTop
         Spacing = 15
+        OnClick = btnExameClick
       end
     end
     object GroupBox8: TGroupBox
@@ -1300,6 +1301,8 @@ object frmConsulta: TfrmConsulta
       Height = 27
       Enabled = False
       TabOrder = 5
+      Text = '560'
+      Visible = False
     end
   end
   object pnHistorico: TPanel

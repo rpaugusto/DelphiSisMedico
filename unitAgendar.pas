@@ -28,10 +28,6 @@ type
     edtPaciente: TEdit;
     edtIdAgenda: TDBEdit;
     GroupBox3: TGroupBox;
-    QBuscaAgendaHora: TStringField;
-    QBuscaAgendaid: TAutoIncField;
-    QBuscaAgendaNome: TStringField;
-    QBuscaAgendaStatus: TStringField;
     edtPlano: TEdit;
     edtIdPlano: TDBEdit;
     qPlano: TADOQuery;
@@ -51,6 +47,10 @@ type
     qPacienteid: TAutoIncField;
     qPacientenome: TStringField;
     qPacientecpf: TStringField;
+    QBuscaAgendaHora: TStringField;
+    QBuscaAgendaid: TAutoIncField;
+    QBuscaAgendaNome: TStringField;
+    QBuscaAgendaStatus: TStringField;
     procedure btnBuscarAgendaClick(Sender: TObject);
     procedure btnMedicoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -82,12 +82,16 @@ uses untDMCentral, DateUtils;
 
 procedure TfrmAgendar.btnBuscarAgendaClick(Sender: TObject);
 var
+
   data : String;
   crm : integer;
+
 begin
+  {  codigo não utilizado esta sendo executado por uma procudure
   data:= DateToStr(dtCalendario.Date);
   crm := StrToInt(edtCrm.Text);
-  {with qBuscaAgenda do
+
+  with qBuscaAgenda do
     begin
       close;
         Parameters.ParamByName('pCrm').Value := crm;
@@ -192,19 +196,22 @@ end;
 procedure TfrmAgendar.verAgenda(crm: integer);
 var
   data : String;
+
+
 begin
   data:= DateToStr(dtCalendario.Date);
-  //crm := StrToInt(edtCrm.Text);
+  { não foi encontrado onde esta declarada a variavel
+  crm := StrToInt(edtCrm.Text);
+  }
   with qBuscaAgenda do
     begin
       close;
-        sql.Clear;
-        sql.Add('exec buscaAgenda @conselho = :pCrm');
-        sql.Add('@datainicio = :pdatainicio, @datafim = :Pdatafim');
-        Parameters.ParamByName('pCrm').Value := crm;
-        Parameters.ParamByName('pDataInicio').Value := (data + ' 00:00');
-        Parameters.ParamByName('pDataFim').Value:= (data + ' 23:59');
-      open;
+      SQL.Clear;
+      SQL.Add('EXEC BUSCAAGENDA @datainicio = :pDataIni, @datafim = :pDataFim, @conselho = :pCrm');
+      Parameters.ParamByName('pCrm').Value := StrToInt(edtCrm.Text);
+      Parameters.ParamByName('pDataIni').Value := (data + ' 00:00');
+      Parameters.ParamByName('pDataFim').Value := (data + ' 23:59');
+      Open;
   end;
 end;
 

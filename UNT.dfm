@@ -4861,9 +4861,11 @@ object frmLogin: TfrmLogin
         Value = Null
       end>
     SQL.Strings = (
-      'select count(*), login, senha, nome, id from funcionarios'
+      
+        'select count(*), login, senha, nome, id, conselho from funcionar' +
+        'ios'
       'where login = :pLogin and senha = :pSenha'
-      'group by login, senha, nome, id')
+      'group by login, senha, nome, id,conselho')
     Left = 352
     Top = 8
   end

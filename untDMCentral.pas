@@ -8,6 +8,7 @@ uses
 type
   TdmCentral = class(TDataModule)
     conecta: TADOConnection;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -20,5 +21,10 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TdmCentral.DataModuleCreate(Sender: TObject);
+begin
+  conecta.Connected := true;
+end;
 
 end.

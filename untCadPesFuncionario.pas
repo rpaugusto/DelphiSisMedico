@@ -22,7 +22,6 @@ type
     qFuncionariosbairro: TStringField;
     qFuncionarioscidade: TStringField;
     qFuncionariosestado: TStringField;
-    qFuncionarioscep: TIntegerField;
     qFuncionariosrg: TIntegerField;
     qFuncionariosemail: TStringField;
     qFuncionarioscadastrado: TDateTimeField;
@@ -73,7 +72,6 @@ type
     Label18: TLabel;
     DBEdit17: TDBEdit;
     qFuncionarioscelular: TStringField;
-    qFuncionarioscpf: TStringField;
     qpFuncionario: TQuickRep;
     PageHeaderBand1: TQRBand;
     PageFooterBand1: TQRBand;
@@ -110,6 +108,8 @@ type
     QRLabel14: TQRLabel;
     QRDBRichText1: TQRDBRichText;
     qFuncionariostelefone: TStringField;
+    qFuncionarioscep: TStringField;
+    qFuncionarioscpf: TStringField;
     procedure rgFuncaoChange(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);

@@ -10,7 +10,6 @@ uses
 type
   TfrmReceita = class(TForm)
     GroupBox1: TGroupBox;
-    DBGrid1: TDBGrid;
     btnGravar: TBitBtn;
     btnImprimir: TBitBtn;
     btnFechar: TBitBtn;
@@ -56,6 +55,7 @@ type
     QRDBText5: TQRDBText;
     QRDBText6: TQRDBText;
     QRShape1: TQRShape;
+    gdReceita: TDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
@@ -84,30 +84,37 @@ end;
 
 procedure TfrmReceita.btnGravarClick(Sender: TObject);
 begin
+  {inserindo dados na tabela receita}
   with qReceitas do
     begin
-    close;
-    sql.Clear;
-    sql.Add('insert into receitas (medicamento, recomendacao, qtde, Consulta_id)');
-    sql.Add('values (:pMedicamento, :pRecomendacao, :pQtde, :pConsulta_id)');
-    Parameters.ParamByName('pMedicamento').Value := edtMedicamento.Text;
-    Parameters.ParamByName('pRecomendacao').Value := edtRecomenda.Text;
-    Parameters.ParamByName('pQtde').Value := StrToInt(edtQtd.Text);
-    Parameters.ParamByName('pConsulta_id').Value := StrToInt(edtConsulta.Text);
+      close;
+      sql.Clear;
+      sql.Add('insert into receitas (medicamento, recomendacao, qtde, Consulta_id)');
+      sql.Add('values (:pMedicamento, :pRecomendacao, :pQtde, :pConsulta_id)');
+      Parameters.ParamByName('pMedicamento').Value := edtMedicamento.Text;
+      Parameters.ParamByName('pRecomendacao').Value := edtRecomenda.Text;
+      Parameters.ParamByName('pQtde').Value := StrToInt(edtQtd.Text);
+      Parameters.ParamByName('pConsulta_id').Value := StrToInt(edtConsulta.Text);
+      ExecSQL;
+    end;
 
-    ExecSQL;
-    edtMedicamento.Clear;
-    edtRecomenda.Clear;
-    edtQtd.Clear;
-  end;
+  {limpando os campos do formulario}
+  edtMedicamento.Clear;
+  edtRecomenda.Clear;
+  edtQtd.Clear;
+
+  {listando a receita atual}
   with qReceitas do
     begin
-    Close;
-    sql.Clear;
-    sql.Add('(select * from receitas)');
-    Open;
-  end;
-
+      Close;
+      sql.Clear;
+      sql.Add('select * from receitas where consulta_id = :pConsulta');
+      Parameters.ParamByName('pConsulta').Value := StrToInt(edtConsulta.Text);
+      Open;
+    end;
+  dsReceita.DataSet := qReceitas;
+  dsReceita.DataSet.Open;
+  gdReceita.DataSource := dsReceita;
 end;
 
 procedure TfrmReceita.btnImprimirClick(Sender: TObject);
@@ -115,7 +122,7 @@ begin
   qLsReceita.Close;
   qLsReceita.SQL.Clear;
   qLsReceita.SQL.Add('select * from lsreceita where consulta_id = :consulta_id');
-  qLsReceita.Parameters.ParamByName('consulta_id').Value := qReceitas.FieldByName('consulta_id').AsInteger;
+  qLsReceita.Parameters.ParamByName('consulta_id').Value := StrToInt(edtConsulta.Text);
   qLsReceita.Open;
 
   //dmCentral.qPaciente.Open;

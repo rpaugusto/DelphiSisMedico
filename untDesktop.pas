@@ -21,7 +21,6 @@ type
     btnAgenda: TToolButton;
     ImageList1: TImageList;
     pnAgenda: TPanel;
-    DBGrid1: TDBGrid;
     dsDesktop: TDataSource;
     Pacientes1: TMenuItem;
     Funcionrios1: TMenuItem;
@@ -33,12 +32,7 @@ type
     actPlano: TAction;
     actAgendamento: TAction;
     qDesktop: TADOQuery;
-    qDesktophora: TStringField;
-    qDesktopnome: TStringField;
-    qDesktopestado: TStringField;
-    qDesktopid: TAutoIncField;
     edtAgendaId: TDBEdit;
-    btnAtender: TBitBtn;
     qIdentifica: TADOQuery;
     actMontAgenda: TAction;
     MontarAgenda1: TMenuItem;
@@ -49,6 +43,17 @@ type
     actRelPaciente: TAction;
     ListadePacientes1: TMenuItem;
     ListadeFuncionarios1: TMenuItem;
+    qDesktopHora: TStringField;
+    qDesktopid: TAutoIncField;
+    qDesktopNome: TStringField;
+    qDesktopStatus: TStringField;
+    BitBtn1: TBitBtn;
+    actAtualizaAgenda: TAction;
+    gdTeste: TDBGrid;
+    BitBtn2: TBitBtn;
+    actAtender: TAction;
+    Fichadoatendimento1: TMenuItem;
+    actFichAtendiemento: TAction;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Sair1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -56,27 +61,38 @@ type
     procedure actPacienteExecute(Sender: TObject);
     procedure actFuncionarioExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure btnAtenderClick(Sender: TObject);
-    function isMedico (id : integer) : Boolean;
-    procedure FormActivate(Sender: TObject);
     procedure actMontAgendaExecute(Sender: TObject);
     procedure actRelFuncionarioExecute(Sender: TObject);
     procedure actRelPacienteExecute(Sender: TObject);
     procedure actAgendamentoExecute(Sender: TObject);
+    procedure actAtualizaAgendaExecute(Sender: TObject);
+    procedure actPlanoExecute(Sender: TObject);
+    procedure grdAgendaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure gdTesteDrawDataCell(Sender: TObject; const Rect: TRect;
+      Field: TField; State: TGridDrawState);
+    procedure gdTesteCellClick(Column: TColumn);
+    procedure gdTesteKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure actFichAtendiementoExecute(Sender: TObject);
   private
+    function isMedico(crm: integer): Boolean;
     { Private declarations }
   public
     { Public declarations }
+    procedure verAgenda(crm : integer);
   end;
 
 var
   frmDesktop: TfrmDesktop;
-  crm : integer;
+  vcrm : integer;
 
 implementation
 
 uses untDMCentral, untCadPesFuncionario, untCadPesPaciente, UnitConsulta,
-  Math, untMontaAgenda, untRelFuncionario, untRelPaciente, unitAgendar;
+  Math, untMontaAgenda, untRelFuncionario, untRelPaciente, unitAgendar,
+  unitCadPlano;
 
 {$R *.dfm}
 
@@ -133,7 +149,7 @@ end;
 procedure TfrmDesktop.FormCreate(Sender: TObject);
 begin
   sbDesktop.Panels[0].Text := DateToStr(NOW);
-  qDesktop.Open;
+  //qDesktop.Open;
   {IF (Trim(sbDesktop.Panels[1].Text) <> '' ) THEN
     BEGIN
       pnAgenda.Visible := True;
@@ -142,46 +158,8 @@ begin
 
 end;
 
-procedure TfrmDesktop.btnAtenderClick(Sender: TObject);
+function TfrmDesktop.isMedico(crm: integer): Boolean;
 begin
-  TRY
-    Application.CreateForm(TfrmConsulta, frmConsulta);
-    frmConsulta.edtConsulta.Text := edtAgendaId.text;
-    frmConsulta.ShowModal;
-  FINALLY
-    FreeAndNil(frmConsulta);
-  END;
-
-
-end;
-
-function TfrmDesktop.isMedico(id: integer): Boolean;
-begin
-  WITH qIdentifica DO
-    BEGIN
-      Close;
-      SQL.Clear;
-      SQL.Add('SELECT COUNT(*), conselho FROM funcionarios');
-      SQL.Add('WHERE id = :pId and funcao = :pFuncao');
-      SQL.Add('GROUP BY conselho');
-      Parameters.ParamByName('pId').Value := id;
-      Parameters.ParamByName('pFuncao').Value := ('MED%');
-      Open;
-      crm := (Fields[1].AsInteger);
-      Result :=  (Fields[0].AsInteger > 0);
-    END;
-end;
-
-procedure TfrmDesktop.FormActivate(Sender: TObject);
-begin
-  IF (isMedico(StrToInt(sbDesktop.Panels[1].Text))) THEN
-    WITH qDesktop DO
-      BEGIN
-        close;
-        Parameters.ParamByName('pCrm').Value := crm;
-        Open;
-      END;
-    pnAgenda.Visible := True;
 
 end;
 
@@ -222,6 +200,116 @@ begin
     frmAgendar.ShowModal;
   FINALLY
     FreeAndNil(frmAgendar);
+  END;
+end;
+
+procedure TfrmDesktop.verAgenda(crm: integer);
+begin
+  vcrm := crm;
+  WITH qDesktop DO
+    BEGIN
+      close;
+      SQL.Clear;
+      SQL.Add('EXEC BUSCAAGENDA @datainicio = :pDataIni, @datafim = :pDataFim, @conselho = :pCrm');
+      Parameters.ParamByName('pCrm').Value := crm;
+      Parameters.ParamByName('pDataIni').Value := (DateToStr(NOW) + ' 00:00');
+      Parameters.ParamByName('pDataFim').Value := (DateToStr(NOW) + ' 23:59');
+      Open;
+    END;
+
+  pnAgenda.Visible := true;
+
+end;
+
+procedure TfrmDesktop.actAtualizaAgendaExecute(Sender: TObject);
+begin
+  verAgenda(vcrm);
+end;
+
+procedure TfrmDesktop.actPlanoExecute(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmCadPlano,frmCadPlano);
+    frmCadPlano.ShowModal;
+  FINALLY
+    FreeAndNil(frmCadPlano);
+  END;
+end;
+
+procedure TfrmDesktop.grdAgendaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  {IMPEDINDO CTRL+DEL / SHIT+CTRL+DEL / DEL}
+  if (ssCtrl in Shift) and (Key = VK_DELETE) then Key := 0;
+end;
+
+procedure TfrmDesktop.gdTesteDrawDataCell(Sender: TObject;
+  const Rect: TRect; Field: TField; State: TGridDrawState);
+begin
+  {COLORINDO A LINHA COM O VALOR DO STATUS}
+   if AnsiUpperCase(qDesktop.FieldByName('Status').Value) = 'LIVRE' then
+      gdTeste.Canvas.Brush.Color := clMoneyGreen;
+   if AnsiUpperCase(qDesktop.FieldByName('Status').Value) = 'ATENDIDO' then
+      gdTeste.Canvas.Brush.Color := clRed;
+   if AnsiUpperCase(qDesktop.FieldByName('Status').Value) = 'AGENDADO' then
+      gdTeste.Canvas.Brush.Color := clOlive;
+
+   gdTeste.Canvas.FillRect(Rect);
+   gdTeste.DefaultDrawDataCell(Rect,Field,State);
+
+end;
+
+procedure TfrmDesktop.gdTesteCellClick(Column: TColumn);
+begin
+  {ATIVANDO O BOTÃO CONFORME VALOR DO STATUS}
+  if AnsiUpperCase(qDesktop.FieldByName('Status').Value) = 'AGENDADO' then
+      BitBtn2.Enabled := true
+  else
+      BitBtn2.Enabled := false;
+
+end;
+
+procedure TfrmDesktop.gdTesteKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  {IMPEDINDO CTRL+DEL / SHIT+CTRL+DEL / DEL}
+  if (ssCtrl in Shift) and (Key = VK_DELETE) then Key := 0;
+end;
+
+procedure TfrmDesktop.BitBtn2Click(Sender: TObject);
+begin
+TRY
+    try
+      Application.CreateForm(TfrmConsulta, frmConsulta);
+      frmConsulta.edtConsulta.Text := edtAgendaId.text;
+      WITH qIdentifica DO
+        BEGIN
+        close;
+        SQL.Clear;
+        SQL.Add('INSERT INTO consultas (agenda_id) VALUES (:pConsulta)');
+        Parameters.ParamByName('pConsulta').Value := StrToInt(edtAgendaId.Text);
+        ExecSQL;
+
+        END;
+      frmConsulta.ShowModal;
+    except
+      on e: Exception do
+      begin
+        MessageDlg('Consulta já Realizada !',mtInformation, [mbOK],0);
+      end;
+    end;
+  FINALLY
+    FreeAndNil(frmConsulta);
+  END;
+end;
+
+procedure TfrmDesktop.actFichAtendiementoExecute(Sender: TObject);
+begin
+   TRY
+    Application.CreateForm(TfrmFchConsulta,frmFchConsulta);
+    frmFchConsulta.ShowModal;
+  FINALLY
+    FreeAndNil(frmFchConsulta);
   END;
 end;
 

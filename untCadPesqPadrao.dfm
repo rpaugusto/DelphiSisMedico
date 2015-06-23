@@ -3,6 +3,7 @@ object frmCadPesPadrao: TfrmCadPesPadrao
   Top = 130
   Width = 787
   Height = 563
+  BorderIcons = [biSystemMenu]
   Caption = 'frmCadPesPadrao'
   Color = clWindow
   Ctl3D = False

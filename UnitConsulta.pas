@@ -40,6 +40,8 @@ type
     procedure btnReceitaClick(Sender: TObject);
     procedure edtConsultaChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure btnExameClick(Sender: TObject);
+    procedure btnPesquisaClick(Sender: TObject);
   private
     { Private declarations }
     procedure IdPaciente(consulta : integer);
@@ -54,36 +56,39 @@ var
 
 implementation
 
-uses untDMCentral;
+uses untDMCentral, untReceita, untExame, untDesktop, untProntuario;
 
 {$R *.dfm}
 
 procedure TfrmConsulta.btnFinalizaClick(Sender: TObject);
 begin
-
+  {efetua um update na tabela consulta e tabela agenda}
   with qConsulta do
     begin
       Close;
       SQL.Clear;
-      SQL.Add('INSERT INTO consultas (diagnostico, agenda_id) ');
-      SQL.Add('VALUES (:pDiagnostico, :pConsulta) ');
+      sql.Add('exec atualizaAgenda @agenda_id = :pConsulta, @diagnostico = :pDiagnostico');
       Parameters.ParamByName('pDiagnostico').Value := mDiagnostico.Lines.Text;
       Parameters.ParamByName('pConsulta').Value := StrToInt(edtConsulta.Text);
       ExecSQL;
     end;
-
+      {Forçando atualizar agenda}
+      frmDesktop.actAtualizaAgenda.Execute;
     Close;
-    
+
 end;
 
 procedure TfrmConsulta.btnReceitaClick(Sender: TObject);
 
 begin
+ try
+  Application.CreateForm(TfrmReceita,frmReceita);
+  frmReceita.edtConsulta.Text := edtConsulta.Text;
+  frmReceita.ShowModal;
+ finally
+  FreeAndNil(frmReceita);
 
-  {frmRceita := TFrmReceita.Create(Self);
-  frmRceita.consulta := 1;
-  frmRceita.ShowModal;}
-
+ end;
 
 end;
 
@@ -123,12 +128,30 @@ begin
 
     edtProntuario.Text := IntToStr(prontuario);
     edtNome.Text := paciente;
-    
+
 end;
 
 procedure TfrmConsulta.FormActivate(Sender: TObject);
 begin
   IdPaciente(StrToInt(Trim(edtConsulta.Text)));
+end;
+
+procedure TfrmConsulta.btnExameClick(Sender: TObject);
+begin
+  TRY
+    Application.CreateForm(TfrmExame, frmExame);
+    frmExame.edtConsulta.Text := edtConsulta.Text;
+    frmExame.ShowModal;
+  FINALLY
+    FreeAndNil(frmExame);
+
+  END;
+
+end;
+
+procedure TfrmConsulta.btnPesquisaClick(Sender: TObject);
+begin
+  frmFchConsulta.geraProntuario(qHistorico.Fields[0].AsInteger);
 end;
 
 end.

@@ -14,13 +14,15 @@ uses
   untReceita in 'untReceita.pas' {frmReceita},
   untRelFuncionario in 'untRelFuncionario.pas' {frmRelFuncionario},
   untRelPaciente in 'untRelPaciente.pas' {frmRelPaciente},
-  untExame in 'untExame.pas' {frmExame};
+  untExame in 'untExame.pas' {frmExame},
+  unitCadPlano in 'unitCadPlano.pas' {frmCadPlano},
+  untProntuario in 'untProntuario.pas' {frmFchConsulta};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TdmCentral, dmCentral);
-  Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmFchConsulta, frmFchConsulta);
   Application.Run;
 end.

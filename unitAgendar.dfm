@@ -1,11 +1,11 @@
 object frmAgendar: TfrmAgendar
-  Left = 142
-  Top = 152
+  Left = 284
+  Top = 150
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Agenda'
   ClientHeight = 516
-  ClientWidth = 720
+  ClientWidth = 726
   Color = clWindow
   Ctl3D = False
   Font.Charset = ANSI_CHARSET
@@ -632,7 +632,7 @@ object frmAgendar: TfrmAgendar
       end>
     SQL.Strings = (
       'exec buscaAgenda @conselho = :pCrm, '
-      '@datainicio = :pdatainicio, @datafim = :Pdatafim')
+      '@datainicio = :pdataInicio, @datafim = :Pdatafim')
     Left = 896
     Top = 144
     object QBuscaAgendaHora: TStringField

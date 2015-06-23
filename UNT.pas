@@ -32,6 +32,7 @@ type
 var
   frmLogin: TfrmLogin;
   codigo : integer;
+  crm : integer;
   nome : string;
 
 implementation
@@ -58,6 +59,7 @@ begin
       Parameters.ParamByName('pSenha').Value := senha;
       Open;
       codigo :=  Fields[4].AsInteger;
+      crm := Fields[5].AsInteger;
       nome := Fields[3].AsString;
       Result :=  (Fields[0].AsInteger > 0);
     END;
@@ -89,6 +91,7 @@ begin
         Application.CreateForm(TfrmDesktop, frmdesktop);
         frmDesktop.sbDesktop.Panels[1].Text := IntToStr(codigo);
         frmDesktop.sbDesktop.Panels[2].Text := nome;
+        frmDesktop.verAgenda(crm);
         FreeAndNil(frmLogin); //finaliza o frmLogim
         frmDesktop.ShowModal; //carregando o frmDesktop
       FINALLY

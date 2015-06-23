@@ -235,8 +235,6 @@ begin
       WITH qHistorico DO
         BEGIN
           Close;
-          SQL.Clear;
-          SQL.Add('SELECT * FROM lsHisPaciente WHERE paciente_id = :pId');
           Parameters.ParamByName('pId').Value := id;
           Open;
         END;

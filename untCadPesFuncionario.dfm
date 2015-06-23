@@ -6147,12 +6147,6 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
       FixedChar = True
       Size = 2
     end
-    object qFuncionarioscep: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'CEP'
-      FieldName = 'cep'
-      DisplayFormat = '##.###-###'
-    end
     object qFuncionariosrg: TIntegerField
       DisplayLabel = 'RG'
       FieldName = 'rg'
@@ -6183,13 +6177,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
     end
     object qFuncionarioscelular: TStringField
       FieldName = 'celular'
-      EditMask = '!\(99\)0-0000-0000;1;_'
-      Size = 14
-      Transliterate = False
-    end
-    object qFuncionarioscpf: TStringField
-      FieldName = 'cpf'
-      EditMask = '000\.000\.000\-00;1;_'
+      EditMask = '!\(99\)0-0000-0000;0;_'
       Size = 14
       Transliterate = False
     end
@@ -6197,6 +6185,18 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
       FieldName = 'telefone'
       EditMask = '!\(99\)0000-0000;0;_'
       Size = 10
+      Transliterate = False
+    end
+    object qFuncionarioscep: TStringField
+      FieldName = 'cep'
+      EditMask = '00\.000\-000;0;_'
+      Size = 8
+      Transliterate = False
+    end
+    object qFuncionarioscpf: TStringField
+      FieldName = 'cpf'
+      EditMask = '000\.000\.000\-00;0;_'
+      Size = 11
       Transliterate = False
     end
   end

@@ -1,7 +1,7 @@
 object frmReceita: TfrmReceita
-  Left = 311
-  Top = 94
-  Width = 752
+  Left = 308
+  Top = 124
+  Width = 754
   Height = 423
   Caption = 'Receituario'
   Color = clWindow
@@ -90,39 +90,6 @@ object frmReceita: TfrmReceita
       TabOrder = 2
     end
   end
-  object DBGrid1: TDBGrid
-    Left = 8
-    Top = 160
-    Width = 729
-    Height = 225
-    Options = [dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-    TabOrder = 1
-    TitleFont.Charset = ANSI_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -16
-    TitleFont.Name = 'Segoe UI'
-    TitleFont.Style = []
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'medicamento'
-        Width = 150
-        Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'qtde'
-        Width = 50
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'recomendacao'
-        Width = 400
-        Visible = True
-      end>
-  end
   object btnGravar: TBitBtn
     Left = 576
     Top = 24
@@ -135,7 +102,7 @@ object frmReceita: TfrmReceita
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     OnClick = btnGravarClick
     Glyph.Data = {
       F6060000424DF606000000000000360000002800000018000000180000000100
@@ -207,7 +174,7 @@ object frmReceita: TfrmReceita
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     OnClick = btnImprimirClick
     Glyph.Data = {
       360C0000424D360C000000000000360000002800000020000000200000000100
@@ -321,7 +288,7 @@ object frmReceita: TfrmReceita
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btnFecharClick
     Glyph.Data = {
       F6060000424DF606000000000000360000002800000018000000180000000100
@@ -387,7 +354,7 @@ object frmReceita: TfrmReceita
     Width = 865
     Height = 825
     Caption = 'Panel1'
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
     object repReceitas: TQuickRep
       Left = 16
@@ -25403,15 +25370,45 @@ object frmReceita: TfrmReceita
     Top = 32
     Width = 137
     Height = 27
-    TabOrder = 6
+    TabOrder = 5
     Visible = False
   end
+  object gdReceita: TDBGrid
+    Left = 8
+    Top = 160
+    Width = 729
+    Height = 225
+    DataSource = dsReceita
+    Options = [dgEditing, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+    TabOrder = 6
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -16
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'medicamento'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'recomendacao'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'qtde'
+        Visible = True
+      end>
+  end
   object dsReceita: TDataSource
+    DataSet = qReceitas
     Left = 704
     Top = 224
   end
   object qReceitas: TADOQuery
-    Active = True
     Connection = dmCentral.conecta
     CursorType = ctStatic
     Parameters = <>
