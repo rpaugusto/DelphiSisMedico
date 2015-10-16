@@ -33,10 +33,9 @@ type
     QRDBText3: TQRDBText;
     QRSysData1: TQRSysData;
     QRLabel4: TQRLabel;
-    DBGrid1: TDBGrid;
+    procedure SpeedButton1Click(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure actimprimirExecute(Sender: TObject);
-    procedure actPesquisarExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,6 +51,14 @@ uses untDMCentral;
 
 {$R *.dfm}
 
+procedure TfrmCadPlano.SpeedButton1Click(Sender: TObject);
+begin
+  qPlano.Close;
+  qPlano.open;
+  inherited;
+
+end;
+
 procedure TfrmCadPlano.actNovoExecute(Sender: TObject);
 begin
   qPlano.open;
@@ -65,15 +72,6 @@ begin
   qPlano.Close;
   qPlano.Open;
   QuickRep1.Preview;
-end;
-
-procedure TfrmCadPlano.actPesquisarExecute(Sender: TObject);
-begin
-  qPlano.Close;
-  qPlano.open;
-  
-  inherited;
-
 end;
 
 end.

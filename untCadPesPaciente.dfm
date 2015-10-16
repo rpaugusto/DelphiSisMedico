@@ -1,7 +1,7 @@
 inherited frmCadPesPaciente: TfrmCadPesPaciente
-  Left = 309
-  Top = 85
-  Width = 782
+  Left = 403
+  Top = 143
+  Width = 791
   Height = 594
   Caption = 'FORMULARIO DE CADASTRO E PESQUISA DE PACIENTES'
   OldCreateOrder = True
@@ -9,7 +9,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
   PixelsPerInch = 96
   TextHeight = 17
   inherited pgPadrao: TPageControl
-    Width = 774
+    Width = 783
     Height = 544
     ActivePage = tbCadastro
     inherited tbPesquisa: TTabSheet
@@ -67,7 +67,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
     end
     inherited tbCadastro: TTabSheet
       inherited pMenu: TPanel
-        Width = 766
+        Width = 775
       end
       object gbPessoal: TGroupBox
         Left = 2
@@ -356,8 +356,8 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
         end
       end
       object qrFicha: TQuickRep
-        Left = 760
-        Top = -200
+        Left = 776
+        Top = 64
         Width = 794
         Height = 1123
         Frame.Color = clBlack
@@ -6180,7 +6180,7 @@ inherited frmCadPesPaciente: TfrmCadPesPaciente
   end
   inherited StatusBar1: TStatusBar
     Top = 544
-    Width = 774
+    Width = 783
   end
   inherited dspadrao: TDataSource
     DataSet = qPessoas

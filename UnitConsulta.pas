@@ -41,7 +41,6 @@ type
     procedure edtConsultaChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure btnExameClick(Sender: TObject);
-    procedure btnPesquisaClick(Sender: TObject);
   private
     { Private declarations }
     procedure IdPaciente(consulta : integer);
@@ -56,7 +55,7 @@ var
 
 implementation
 
-uses untDMCentral, untReceita, untExame, untDesktop, untProntuario;
+uses untDMCentral, untReceita, untExame, untDesktop;
 
 {$R *.dfm}
 
@@ -147,11 +146,6 @@ begin
 
   END;
 
-end;
-
-procedure TfrmConsulta.btnPesquisaClick(Sender: TObject);
-begin
-  frmFchConsulta.geraProntuario(qHistorico.Fields[0].AsInteger);
 end;
 
 end.

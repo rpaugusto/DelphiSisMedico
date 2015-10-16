@@ -22,8 +22,6 @@ type
     qFuncionariosbairro: TStringField;
     qFuncionarioscidade: TStringField;
     qFuncionariosestado: TStringField;
-    qFuncionarioscep: TIntegerField;
-    qFuncionariostelefone: TIntegerField;
     qFuncionariosrg: TIntegerField;
     qFuncionariosemail: TStringField;
     qFuncionarioscadastrado: TDateTimeField;
@@ -62,7 +60,7 @@ type
     Label13: TLabel;
     DBEdit13: TDBEdit;
     Label14: TLabel;
-    DBEdit14: TDBEdit;
+    edtSenha: TDBEdit;
     rgFuncao: TDBRadioGroup;
     gbMedico: TGroupBox;
     Label15: TLabel;
@@ -74,7 +72,6 @@ type
     Label18: TLabel;
     DBEdit17: TDBEdit;
     qFuncionarioscelular: TStringField;
-    qFuncionarioscpf: TStringField;
     qpFuncionario: TQuickRep;
     PageHeaderBand1: TQRBand;
     PageFooterBand1: TQRBand;
@@ -110,11 +107,15 @@ type
     QRDBText12: TQRDBText;
     QRLabel14: TQRLabel;
     QRDBRichText1: TQRDBRichText;
+    qFuncionariostelefone: TStringField;
+    qFuncionarioscep: TStringField;
+    qFuncionarioscpf: TStringField;
     procedure rgFuncaoChange(Sender: TObject);
     procedure actNovoExecute(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure actPesquisarExecute(Sender: TObject);
     procedure actimprimirExecute(Sender: TObject);
+    procedure actEditarExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -147,7 +148,11 @@ begin
   IF qFuncionarios.Active = false THEN
     qFuncionarios.Active := true;
 
+  IF edtSenha.Enabled = false THEN
+    edtSenha.Enabled := true;
+    
   inherited;
+
 
 end;
 
@@ -213,6 +218,13 @@ begin
       Open;
     END;
   qpFuncionario.Preview;
+end;
+
+procedure TfrmCadPesFuncionario.actEditarExecute(Sender: TObject);
+begin
+  edtSenha.Enabled := false;
+  inherited;
+
 end;
 
 end.

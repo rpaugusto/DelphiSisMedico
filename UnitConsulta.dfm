@@ -1301,8 +1301,6 @@ object frmConsulta: TfrmConsulta
       Height = 27
       Enabled = False
       TabOrder = 5
-      Text = '560'
-      Visible = False
     end
   end
   object pnHistorico: TPanel
@@ -1733,7 +1731,6 @@ object frmConsulta: TfrmConsulta
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
         Layout = blGlyphTop
         Transparent = False
-        OnClick = btnPesquisaClick
       end
     end
     object GroupBox7: TGroupBox

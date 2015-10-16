@@ -15,14 +15,13 @@ uses
   untRelFuncionario in 'untRelFuncionario.pas' {frmRelFuncionario},
   untRelPaciente in 'untRelPaciente.pas' {frmRelPaciente},
   untExame in 'untExame.pas' {frmExame},
-  unitCadPlano in 'unitCadPlano.pas' {frmCadPlano},
-  untProntuario in 'untProntuario.pas' {frmFchConsulta};
+  unitCadPlano in 'unitCadPlano.pas' {frmCadPlano};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TdmCentral, dmCentral);
-  Application.CreateForm(TfrmFchConsulta, frmFchConsulta);
+  Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 end.

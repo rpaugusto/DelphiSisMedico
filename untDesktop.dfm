@@ -1,10 +1,10 @@
 object frmDesktop: TfrmDesktop
-  Left = 196
-  Top = 0
+  Left = 266
+  Top = 121
   Width = 1053
   Height = 735
   BorderIcons = [biSystemMenu]
-  Caption = #193'REA DE TRABALHO'
+  Caption = 'frmDesktop'
   Color = clWindow
   Ctl3D = False
   Font.Charset = ANSI_CHARSET
@@ -282,9 +282,6 @@ object frmDesktop: TfrmDesktop
       end
       object ListadeFuncionarios1: TMenuItem
         Action = actRelFuncionario
-      end
-      object Fichadoatendimento1: TMenuItem
-        Caption = 'Ficha do Atendimento'
       end
     end
     object Sobre1: TMenuItem
@@ -6693,10 +6690,6 @@ object frmDesktop: TfrmDesktop
     object actAtender: TAction
       Caption = 'ATENDER PACIENTE'
       OnExecute = actAgendamentoExecute
-    end
-    object actFichAtendiemento: TAction
-      Caption = 'actFichAtendiemento'
-      OnExecute = actFichAtendiementoExecute
     end
   end
   object qDesktop: TADOQuery

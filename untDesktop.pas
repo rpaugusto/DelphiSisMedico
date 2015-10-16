@@ -52,8 +52,6 @@ type
     gdTeste: TDBGrid;
     BitBtn2: TBitBtn;
     actAtender: TAction;
-    Fichadoatendimento1: TMenuItem;
-    actFichAtendiemento: TAction;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Sair1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -75,7 +73,6 @@ type
     procedure gdTesteKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BitBtn2Click(Sender: TObject);
-    procedure actFichAtendiementoExecute(Sender: TObject);
   private
     function isMedico(crm: integer): Boolean;
     { Private declarations }
@@ -300,16 +297,6 @@ TRY
     end;
   FINALLY
     FreeAndNil(frmConsulta);
-  END;
-end;
-
-procedure TfrmDesktop.actFichAtendiementoExecute(Sender: TObject);
-begin
-   TRY
-    Application.CreateForm(TfrmFchConsulta,frmFchConsulta);
-    frmFchConsulta.ShowModal;
-  FINALLY
-    FreeAndNil(frmFchConsulta);
   END;
 end;
 

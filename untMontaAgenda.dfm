@@ -1,7 +1,7 @@
 object frmMontaAgenda: TfrmMontaAgenda
   Left = 347
   Top = 19
-  Width = 653
+  Width = 939
   Height = 664
   BorderIcons = []
   Caption = 'Montar Agenda'
@@ -20,7 +20,7 @@ object frmMontaAgenda: TfrmMontaAgenda
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 645
+    Width = 931
     Height = 633
     Align = alClient
     TabOrder = 0
@@ -661,7 +661,7 @@ object frmMontaAgenda: TfrmMontaAgenda
     object sbAgenda: TStatusBar
       Left = 1
       Top = 613
-      Width = 643
+      Width = 929
       Height = 19
       Panels = <
         item
@@ -695,6 +695,7 @@ object frmMontaAgenda: TfrmMontaAgenda
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
       Visible = False
+      OnCellClick = dbLisMedicoCellClick
       OnDblClick = dbLisMedicoDblClick
       Columns = <
         item
@@ -711,6 +712,14 @@ object frmMontaAgenda: TfrmMontaAgenda
           Width = 322
           Visible = True
         end>
+    end
+    object Edit1: TEdit
+      Left = 728
+      Top = 8
+      Width = 121
+      Height = 27
+      TabOrder = 7
+      Text = 'Edit1'
     end
   end
   object dsAgenda: TDataSource

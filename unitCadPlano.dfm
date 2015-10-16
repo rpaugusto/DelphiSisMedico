@@ -21,6 +21,9 @@ inherited frmCadPlano: TfrmCadPlano
         end
       end
       inherited gbValor: TGroupBox
+        inherited SpeedButton1: TSpeedButton
+          OnClick = SpeedButton1Click
+        end
         inherited edtPesquisa: TEdit
           Text = ''
         end
@@ -67,8 +70,8 @@ inherited frmCadPlano: TfrmCadPlano
         FocusControl = DBEdit2
       end
       object Label3: TLabel [2]
-        Left = 686
-        Top = 70
+        Left = 6
+        Top = 126
         Width = 40
         Height = 17
         Caption = 'VALOR'
@@ -89,16 +92,16 @@ inherited frmCadPlano: TfrmCadPlano
       object DBEdit2: TDBEdit
         Left = 68
         Top = 88
-        Width = 605
+        Width = 701
         Height = 23
         DataField = 'plano'
         DataSource = dspadrao
         TabOrder = 2
       end
       object DBEdit3: TDBEdit
-        Left = 686
-        Top = 88
-        Width = 75
+        Left = 6
+        Top = 144
+        Width = 340
         Height = 23
         DataField = 'valor'
         DataSource = dspadrao
@@ -427,41 +430,6 @@ inherited frmCadPlano: TfrmCadPlano
           end
         end
       end
-      object DBGrid1: TDBGrid
-        Left = 3
-        Top = 120
-        Width = 758
-        Height = 353
-        DataSource = dspadrao
-        Options = [dgEditing, dgTitles, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-        TabOrder = 5
-        TitleFont.Charset = ANSI_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -13
-        TitleFont.Name = 'Segoe UI'
-        TitleFont.Style = []
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'id'
-            Title.Caption = 'CODIGO'
-            Width = 104
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'plano'
-            Title.Caption = 'PLANO'
-            Width = 490
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'valor'
-            Title.Caption = 'VALOR'
-            Visible = True
-          end>
-      end
     end
   end
   inherited StatusBar1: TStatusBar
@@ -472,6 +440,7 @@ inherited frmCadPlano: TfrmCadPlano
     DataSet = qPlano
   end
   object qPlano: TADOQuery
+    Active = True
     Connection = dmCentral.conecta
     CursorType = ctStatic
     Parameters = <>

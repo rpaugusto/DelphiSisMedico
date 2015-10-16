@@ -37,6 +37,7 @@ type
     qAgenda: TADOQuery;
     edtCrm: TEdit;
     edtMedico: TEdit;
+    Edit1: TEdit;
     procedure dbLisMedicoDblClick(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
@@ -50,6 +51,7 @@ type
       Rect: TRect; State: TGridDrawState);
     procedure sgAgendaClick(Sender: TObject);
     procedure sgAgendaDblClick(Sender: TObject);
+    procedure dbLisMedicoCellClick(Column: TColumn);
   private
     { Private declarations }
   public
@@ -69,12 +71,12 @@ uses untDMCentral, DateUtils;
 
 procedure TfrmMontaAgenda.dbLisMedicoDblClick(Sender: TObject);
 begin
-  edtCrm.Text := IntToStr(qAgenda.Fields[0].AsInteger);
+  {edtCrm.Text := IntToStr(qAgenda.Fields[0].AsInteger);
   edtMedico.Text := qAgenda.Fields[1].AsString;
-  id := qAgenda.Fields[3].AsInteger;
-  //edtCrm.Enabled := false;
-  //edtMedico.Enabled := false;
-  dbLisMedico.Visible := false;
+  Edit1.Text := IntToStr(qAgenda.Fields[3].AsInteger);
+  edtCrm.Enabled := false;
+  edtMedico.Enabled := false;
+  dbLisMedico.Visible := false;}
 end;
 
 procedure TfrmMontaAgenda.SpeedButton2Click(Sender: TObject);
@@ -337,5 +339,16 @@ begin
 end;
 
 
+
+procedure TfrmMontaAgenda.dbLisMedicoCellClick(Column: TColumn);
+begin
+  edtCrm.Text := IntToStr(qAgenda.Fields[0].AsInteger);
+  edtMedico.Text := qAgenda.Fields[1].AsString;
+  id := qAgenda.Fields[3].AsInteger;
+  Edit1.Text := IntToStr(qAgenda.Fields[3].AsInteger);
+  edtCrm.Enabled := false;
+  edtMedico.Enabled := false;
+  dbLisMedico.Visible := false;
+end;
 
 end.

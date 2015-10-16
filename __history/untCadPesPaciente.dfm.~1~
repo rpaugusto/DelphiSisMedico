@@ -1,27 +1,26 @@
-inherited frmCadPesFuncionario: TfrmCadPesFuncionario
-  Left = 285
-  Top = 83
-  Width = 788
-  Height = 650
-  Caption = 'FORMULARIO DE CADASTRO E PESQUISA DE FUNCIONARIOS'
+inherited frmCadPesPaciente: TfrmCadPesPaciente
+  Left = 309
+  Top = 85
+  Width = 782
+  Height = 594
+  Caption = 'FORMULARIO DE CADASTRO E PESQUISA DE PACIENTES'
   OldCreateOrder = True
-  Position = poDesktopCenter
   Scaled = False
   PixelsPerInch = 96
   TextHeight = 17
   inherited pgPadrao: TPageControl
-    Width = 780
-    Height = 600
+    Width = 774
+    Height = 544
     ActivePage = tbCadastro
     inherited tbPesquisa: TTabSheet
       inherited gbCondicao: TGroupBox
         inherited cbCondicao: TComboBox
           Text = 'TODOS'
+          OnChange = cbCondicaoChange
           Items.Strings = (
             'TODOS'
             'NOME'
-            'FUN'#199#195'O'
-            'ESPECIALIDADE')
+            'CPF')
         end
       end
       inherited gbValor: TGroupBox
@@ -29,47 +28,50 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           OnClick = SpeedButton1Click
         end
         inherited edtPesquisa: TEdit
-          CharCase = ecUpperCase
           Text = ''
+        end
+        object edtCpf: TMaskEdit
+          Left = 8
+          Top = 32
+          Width = 520
+          Height = 23
+          EditMask = '000\.000\.000\-00;0;_'
+          MaxLength = 14
+          TabOrder = 1
+          Visible = False
         end
       end
       inherited dbgResultado: TDBGrid
-        Height = 489
+        Height = 433
         DataSource = dspadrao
         Columns = <
           item
             Expanded = False
             FieldName = 'nome'
-            Width = 450
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'funcao'
-            Width = 150
+            Width = 400
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'cpf'
-            Title.Caption = 'CPF'
+            Width = 150
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'especialidade'
-            Title.Caption = 'ESPECIALIDADE'
+            FieldName = 'cidade'
+            Width = 200
             Visible = True
           end>
       end
     end
     inherited tbCadastro: TTabSheet
       inherited pMenu: TPanel
-        Width = 772
+        Width = 766
       end
       object gbPessoal: TGroupBox
-        Left = 3
-        Top = 62
+        Left = 2
+        Top = 59
         Width = 768
         Height = 100
         Caption = 'DADOS PESSOAL     '
@@ -80,7 +82,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           Width = 49
           Height = 17
           Caption = 'CODIGO'
-          FocusControl = edtId
+          FocusControl = edtCodigo
         end
         object Label2: TLabel
           Left = 63
@@ -106,7 +108,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           Caption = 'RG'
           FocusControl = DBEdit4
         end
-        object edtId: TDBEdit
+        object edtCodigo: TDBEdit
           Left = 4
           Top = 32
           Width = 57
@@ -121,6 +123,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
+          OnChange = edtCodigoChange
         end
         object DBEdit2: TDBEdit
           Left = 62
@@ -225,7 +228,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           Width = 52
           Height = 17
           Caption = 'CELULAR'
-          FocusControl = DBEdit11
+          FocusControl = edtCpfCod
         end
         object Label12: TLabel
           Left = 5
@@ -263,7 +266,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           TabOrder = 2
         end
         object DBEdit8: TDBEdit
-          Left = 442
+          Left = 450
           Top = 75
           Width = 320
           Height = 23
@@ -289,7 +292,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           DataSource = dspadrao
           TabOrder = 5
         end
-        object DBEdit11: TDBEdit
+        object edtCpfCod: TDBEdit
           Left = 490
           Top = 118
           Width = 272
@@ -308,174 +311,53 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           TabOrder = 7
         end
       end
-      object gbFuncional: TGroupBox
+      object gbHistorico: TGroupBox
         Left = 3
-        Top = 354
-        Width = 768
-        Height = 215
-        Caption = 'DADOS FUNCIONAL     '
+        Top = 355
+        Width = 767
+        Height = 152
+        Caption = 'HISTORICO     '
         TabOrder = 3
-        object Label17: TLabel
-          Left = 593
-          Top = 45
-          Width = 82
-          Height = 17
-          Caption = 'CADASTRADO'
-          FocusControl = DBEdit16
-        end
-        object Label18: TLabel
-          Left = 592
-          Top = 83
-          Width = 75
-          Height = 17
-          Caption = 'ATUALIZADO'
-          FocusControl = DBEdit17
-        end
-        object Label27: TLabel
-          Left = 5
-          Top = 128
-          Width = 81
-          Height = 17
-          Caption = 'OBSERVA'#199#195'O'
-        end
-        object gbAcesso: TGroupBox
-          Left = 4
+        object DBGrid1: TDBGrid
+          Left = 6
           Top = 18
-          Width = 213
-          Height = 106
-          Caption = 'ACESSO AO SISTEMA     '
+          Width = 755
+          Height = 128
+          DataSource = dsHistorico
+          Options = [dgTitles, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
           TabOrder = 0
-          object Label13: TLabel
-            Left = 3
-            Top = 16
-            Width = 38
-            Height = 17
-            Caption = 'LOGIN'
-            FocusControl = DBEdit13
-          end
-          object Label14: TLabel
-            Left = 3
-            Top = 55
-            Width = 41
-            Height = 17
-            Caption = 'SENHA'
-            FocusControl = DBEdit14
-          end
-          object DBEdit13: TDBEdit
-            Left = 3
-            Top = 32
-            Width = 206
-            Height = 23
-            DataField = 'login'
-            DataSource = dspadrao
-            TabOrder = 0
-          end
-          object DBEdit14: TDBEdit
-            Left = 3
-            Top = 71
-            Width = 206
-            Height = 23
-            DataField = 'senha'
-            DataSource = dspadrao
-            PasswordChar = '*'
-            TabOrder = 1
-          end
-        end
-        object rgFuncao: TDBRadioGroup
-          Left = 220
-          Top = 16
-          Width = 185
-          Height = 108
-          Caption = 'FUN'#199#195'O     '
-          DataField = 'funcao'
-          DataSource = dspadrao
-          Items.Strings = (
-            'SECRETARIA (O)'
-            'MEDICA (O)'
-            'GERENTE')
-          TabOrder = 1
-          OnChange = rgFuncaoChange
-        end
-        object gbMedico: TGroupBox
-          Left = 408
-          Top = 16
-          Width = 178
-          Height = 108
-          Caption = 'MEDICO     '
-          Enabled = False
-          TabOrder = 2
-          object Label15: TLabel
-            Left = 4
-            Top = 16
-            Width = 67
-            Height = 17
-            Caption = 'CONSELHO'
-            FocusControl = DBEdit15
-          end
-          object Label16: TLabel
-            Left = 6
-            Top = 59
-            Width = 89
-            Height = 17
-            Caption = 'ESPECIALIDADE'
-          end
-          object DBEdit15: TDBEdit
-            Left = 4
-            Top = 32
-            Width = 170
-            Height = 23
-            DataField = 'conselho'
-            DataSource = dspadrao
-            TabOrder = 0
-          end
-          object DBComboBox1: TDBComboBox
-            Left = 5
-            Top = 74
-            Width = 167
-            Height = 25
-            DataField = 'especialidade'
-            DataSource = dspadrao
-            ItemHeight = 17
-            Items.Strings = (
-              'PEDIATRA'
-              'CLINICO'
-              'ORTOPEDISTA')
-            TabOrder = 1
-          end
-        end
-        object DBEdit16: TDBEdit
-          Left = 592
-          Top = 61
-          Width = 172
-          Height = 23
-          DataField = 'cadastrado'
-          DataSource = dspadrao
-          Enabled = False
-          TabOrder = 3
-        end
-        object DBEdit17: TDBEdit
-          Left = 592
-          Top = 99
-          Width = 172
-          Height = 23
-          DataField = 'atualizado'
-          DataSource = dspadrao
-          Enabled = False
-          TabOrder = 4
-        end
-        object DBMemo1: TDBMemo
-          Left = 5
-          Top = 146
-          Width = 758
-          Height = 64
-          DataField = 'observacao'
-          DataSource = dspadrao
-          TabOrder = 5
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -13
+          TitleFont.Name = 'Segoe UI'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'data'
+              Title.Caption = 'DATA'
+              Width = 120
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'hora'
+              Title.Caption = 'HORA'
+              Width = 120
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'medico'
+              Title.Caption = 'MEDICO'
+              Width = 488
+              Visible = True
+            end>
         end
       end
-      object qpFuncionario: TQuickRep
-        Left = 776
-        Top = 64
+      object qrFicha: TQuickRep
+        Left = 760
+        Top = -200
         Width = 794
         Height = 1123
         Frame.Color = clBlack
@@ -483,7 +365,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
         Frame.DrawBottom = False
         Frame.DrawLeft = False
         Frame.DrawRight = False
-        DataSet = qFuncionarios
+        DataSet = qPessoas
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -515,6 +397,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
         PrinterSettings.LastPage = 0
         PrinterSettings.OutputBin = Auto
         PrintIfEmpty = True
+        ReportTitle = 'FICHA DO PACIENTE'
         SnapToGrid = True
         Units = Native
         Zoom = 100
@@ -522,59 +405,35 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           Left = 38
           Top = 38
           Width = 718
-          Height = 123
+          Height = 155
           Frame.Color = clBlack
           Frame.DrawTop = False
           Frame.DrawBottom = True
           Frame.DrawLeft = False
           Frame.DrawRight = False
-          Frame.Style = psInsideFrame
           AlignToBottom = False
           Color = clWhite
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            325.437500000000000000
+            410.104166666666700000
             1899.708333333333000000)
           BandType = rbPageHeader
-          object QRSysData1: TQRSysData
-            Left = 608
-            Top = 96
-            Width = 36
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              1608.666666666667000000
-              254.000000000000000000
-              95.250000000000000000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            Color = clWhite
-            Data = qrsDate
-            Transparent = False
-            FontSize = 10
-          end
           object QRImage1: TQRImage
             Left = 8
             Top = 8
-            Width = 105
-            Height = 105
+            Width = 137
+            Height = 137
             Frame.Color = clBlack
             Frame.DrawTop = False
             Frame.DrawBottom = False
             Frame.DrawLeft = False
             Frame.DrawRight = False
             Size.Values = (
-              277.812500000000000000
+              362.479166666666700000
               21.166666666666670000
               21.166666666666670000
-              277.812500000000000000)
+              362.479166666666700000)
             Picture.Data = {
               07544269746D61700E530200424D0E530200000000003600000028000000BB00
               00000E0100000100180000000000D8520200C40E0000C40E0000000000000000
@@ -5339,63 +5198,108 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
               FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
             Stretch = True
           end
-          object QRLabel2: TQRLabel
-            Left = 232
-            Top = 48
-            Width = 290
-            Height = 30
+          object QRSysData1: TQRSysData
+            Left = 584
+            Top = 128
+            Width = 68
+            Height = 17
             Frame.Color = clBlack
             Frame.DrawTop = False
             Frame.DrawBottom = False
             Frame.DrawLeft = False
             Frame.DrawRight = False
             Size.Values = (
-              79.375000000000000000
-              613.833333333333300000
-              127.000000000000000000
-              767.291666666666700000)
+              44.979166666666670000
+              1545.166666666667000000
+              338.666666666666700000
+              179.916666666666700000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            Color = clWhite
+            Data = qrsDateTime
+            Transparent = False
+            FontSize = 10
+          end
+          object QRLabel1: TQRLabel
+            Left = 520
+            Top = 128
+            Width = 56
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              1375.833333333333000000
+              338.666666666666700000
+              148.166666666666700000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
-            Caption = 'FICHA DO FUNCIONARIO'
+            Caption = 'Emiss'#227'o:'
             Color = clWhite
-            Font.Charset = DEFAULT_CHARSET
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRLabel2: TQRLabel
+            Left = 248
+            Top = 48
+            Width = 235
+            Height = 33
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              87.312500000000000000
+              656.166666666666700000
+              127.000000000000000000
+              621.770833333333300000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Caption = 'FICHA DO PACIENTE'
+            Color = clWhite
+            Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -24
-            Font.Name = 'Arial'
+            Font.Name = 'Segoe UI'
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = False
             WordWrap = True
             FontSize = 18
           end
+          object qCodBar: TQRImage
+            Left = 584
+            Top = 8
+            Width = 129
+            Height = 65
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              171.979166666666700000
+              1545.166666666667000000
+              21.166666666666670000
+              341.312500000000000000)
+            AutoSize = True
+          end
         end
-        object PageFooterBand1: TQRBand
+        object detail: TQRBand
           Left = 38
-          Top = 537
+          Top = 193
           Width = 718
-          Height = 40
-          Frame.Color = clBlack
-          Frame.DrawTop = True
-          Frame.DrawBottom = False
-          Frame.DrawLeft = False
-          Frame.DrawRight = False
-          Frame.Style = psInsideFrame
-          AlignToBottom = False
-          Color = clWhite
-          ForceNewColumn = False
-          ForceNewPage = False
-          Size.Values = (
-            105.833333333333300000
-            1899.708333333333000000)
-          BandType = rbPageFooter
-        end
-        object ColumnHeaderBand1: TQRBand
-          Left = 38
-          Top = 161
-          Width = 718
-          Height = 376
+          Height = 280
           Frame.Color = clBlack
           Frame.DrawTop = False
           Frame.DrawBottom = False
@@ -5406,12 +5310,12 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           ForceNewColumn = False
           ForceNewPage = False
           Size.Values = (
-            994.833333333333300000
+            740.833333333333300000
             1899.708333333333000000)
-          BandType = rbColumnHeader
+          BandType = rbDetail
           object QRDBText1: TQRDBText
             Left = 8
-            Top = 25
+            Top = 27
             Width = 33
             Height = 17
             Frame.Color = clBlack
@@ -5422,14 +5326,14 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              66.145833333333330000
+              71.437500000000000000
               87.312500000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'nome'
             Transparent = False
             WordWrap = True
@@ -5437,7 +5341,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           end
           object QRDBText2: TQRDBText
             Left = 8
-            Top = 67
+            Top = 73
             Width = 54
             Height = 17
             Frame.Color = clBlack
@@ -5448,14 +5352,14 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              177.270833333333300000
+              193.145833333333300000
               142.875000000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'endereco'
             Transparent = False
             WordWrap = True
@@ -5463,7 +5367,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           end
           object QRDBText3: TQRDBText
             Left = 8
-            Top = 112
+            Top = 119
             Width = 33
             Height = 17
             Frame.Color = clBlack
@@ -5474,22 +5378,22 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              296.333333333333300000
+              314.854166666666700000
               87.312500000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'bairro'
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
           object QRDBText4: TQRDBText
-            Left = 539
-            Top = 110
+            Left = 600
+            Top = 118
             Width = 22
             Height = 17
             Frame.Color = clBlack
@@ -5499,15 +5403,15 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Frame.DrawRight = False
             Size.Values = (
               44.979166666666670000
-              1426.104166666667000000
-              291.041666666666700000
+              1587.500000000000000000
+              312.208333333333300000
               58.208333333333330000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'cep'
             Transparent = False
             WordWrap = True
@@ -5515,7 +5419,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           end
           object QRDBText5: TQRDBText
             Left = 8
-            Top = 153
+            Top = 165
             Width = 39
             Height = 17
             Frame.Color = clBlack
@@ -5526,22 +5430,48 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              404.812500000000000000
+              436.562500000000000000
               103.187500000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'cidade'
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
           object QRDBText6: TQRDBText
+            Left = 680
+            Top = 165
+            Width = 40
+            Height = 19
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              50.270833333333330000
+              1799.166666666667000000
+              436.562500000000000000
+              105.833333333333300000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qPessoas
+            DataField = 'estado'
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText7: TQRDBText
             Left = 8
-            Top = 200
+            Top = 208
             Width = 46
             Height = 17
             Frame.Color = clBlack
@@ -5552,67 +5482,15 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              529.166666666666700000
+              550.333333333333300000
               121.708333333333300000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'telefone'
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRDBText7: TQRDBText
-            Left = 184
-            Top = 200
-            Width = 39
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              486.833333333333300000
-              529.166666666666700000
-              103.187500000000000000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Color = clWhite
-            DataSet = qFuncionarios
-            DataField = 'celular'
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRDBText8: TQRDBText
-            Left = 672
-            Top = 152
-            Width = 40
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              1778.000000000000000000
-              402.166666666666700000
-              105.833333333333300000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Color = clWhite
-            DataSet = qFuncionarios
-            DataField = 'estado'
             Transparent = False
             WordWrap = True
             FontSize = 10
@@ -5644,7 +5522,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           end
           object QRLabel4: TQRLabel
             Left = 8
-            Top = 48
+            Top = 54
             Width = 74
             Height = 17
             Frame.Color = clBlack
@@ -5655,7 +5533,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              127.000000000000000000
+              142.875000000000000000
               195.791666666666700000)
             Alignment = taLeftJustify
             AlignToBand = False
@@ -5669,7 +5547,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           end
           object QRLabel5: TQRLabel
             Left = 8
-            Top = 96
+            Top = 100
             Width = 50
             Height = 17
             Frame.Color = clBlack
@@ -5680,7 +5558,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              254.000000000000000000
+              264.583333333333300000
               132.291666666666700000)
             Alignment = taLeftJustify
             AlignToBand = False
@@ -5693,8 +5571,8 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             FontSize = 10
           end
           object QRLabel6: TQRLabel
-            Left = 541
-            Top = 91
+            Left = 600
+            Top = 100
             Width = 28
             Height = 17
             Frame.Color = clBlack
@@ -5704,8 +5582,8 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Frame.DrawRight = False
             Size.Values = (
               44.979166666666670000
-              1431.395833333333000000
-              240.770833333333300000
+              1587.500000000000000000
+              264.583333333333300000
               74.083333333333330000)
             Alignment = taLeftJustify
             AlignToBand = False
@@ -5719,7 +5597,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
           end
           object QRLabel7: TQRLabel
             Left = 8
-            Top = 134
+            Top = 146
             Width = 49
             Height = 17
             Frame.Color = clBlack
@@ -5730,7 +5608,7 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              354.541666666666700000
+              386.291666666666700000
               129.645833333333300000)
             Alignment = taLeftJustify
             AlignToBand = False
@@ -5743,58 +5621,8 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             FontSize = 10
           end
           object QRLabel8: TQRLabel
-            Left = 8
-            Top = 182
-            Width = 69
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              21.166666666666670000
-              481.541666666666700000
-              182.562500000000000000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Caption = 'TELEFONE'
-            Color = clWhite
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRLabel9: TQRLabel
-            Left = 185
-            Top = 182
-            Width = 60
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              489.479166666666700000
-              481.541666666666700000
-              158.750000000000000000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Caption = 'CELULAR'
-            Color = clWhite
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRLabel10: TQRLabel
-            Left = 672
-            Top = 134
+            Left = 680
+            Top = 146
             Width = 18
             Height = 17
             Frame.Color = clBlack
@@ -5804,8 +5632,8 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Frame.DrawRight = False
             Size.Values = (
               44.979166666666670000
-              1778.000000000000000000
-              354.541666666666700000
+              1799.166666666667000000
+              386.291666666666700000
               47.625000000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
@@ -5817,10 +5645,10 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             WordWrap = True
             FontSize = 10
           end
-          object QRLabel1: TQRLabel
+          object QRLabel9: TQRLabel
             Left = 8
-            Top = 232
-            Width = 40
+            Top = 190
+            Width = 69
             Height = 17
             Frame.Color = clBlack
             Frame.DrawTop = False
@@ -5830,22 +5658,22 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              613.833333333333300000
-              105.833333333333300000)
+              502.708333333333300000
+              182.562500000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
-            Caption = 'LOGIN'
+            Caption = 'TELEFONE'
             Color = clWhite
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
-          object QRDBText9: TQRDBText
-            Left = 8
-            Top = 251
-            Width = 28
+          object QRLabel10: TQRLabel
+            Left = 272
+            Top = 190
+            Width = 60
             Height = 17
             Frame.Color = clBlack
             Frame.DrawTop = False
@@ -5854,24 +5682,23 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Frame.DrawRight = False
             Size.Values = (
               44.979166666666670000
-              21.166666666666670000
-              664.104166666666700000
-              74.083333333333330000)
+              719.666666666666700000
+              502.708333333333300000
+              158.750000000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
+            Caption = 'CELULAR'
             Color = clWhite
-            DataSet = qFuncionarios
-            DataField = 'login'
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
           object QRLabel11: TQRLabel
-            Left = 378
-            Top = 182
-            Width = 27
+            Left = 592
+            Top = 190
+            Width = 90
             Height = 17
             Frame.Color = clBlack
             Frame.DrawTop = False
@@ -5880,99 +5707,74 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Frame.DrawRight = False
             Size.Values = (
               44.979166666666670000
-              1000.125000000000000000
-              481.541666666666700000
-              71.437500000000000000)
+              1566.333333333333000000
+              502.708333333333300000
+              238.125000000000000000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
-            Caption = 'CPF'
+            Caption = 'CADASTRADO'
             Color = clWhite
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText8: TQRDBText
+            Left = 272
+            Top = 208
+            Width = 39
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              719.666666666666700000
+              550.333333333333300000
+              103.187500000000000000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qPessoas
+            DataField = 'celular'
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText9: TQRDBText
+            Left = 593
+            Top = 208
+            Width = 65
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              1568.979166666667000000
+              550.333333333333300000
+              171.979166666666700000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qPessoas
+            DataField = 'cadastrado'
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
           object QRLabel12: TQRLabel
-            Left = 563
-            Top = 182
-            Width = 20
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              1489.604166666667000000
-              481.541666666666700000
-              52.916666666666670000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Caption = 'RG'
-            Color = clWhite
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRDBText10: TQRDBText
-            Left = 378
-            Top = 200
-            Width = 18
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              1000.125000000000000000
-              529.166666666666700000
-              47.625000000000000000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Color = clWhite
-            DataSet = qFuncionarios
-            DataField = 'cpf'
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRDBText11: TQRDBText
-            Left = 563
-            Top = 200
-            Width = 12
-            Height = 17
-            Frame.Color = clBlack
-            Frame.DrawTop = False
-            Frame.DrawBottom = False
-            Frame.DrawLeft = False
-            Frame.DrawRight = False
-            Size.Values = (
-              44.979166666666670000
-              1489.604166666667000000
-              529.166666666666700000
-              31.750000000000000000)
-            Alignment = taLeftJustify
-            AlignToBand = False
-            AutoSize = True
-            AutoStretch = False
-            Color = clWhite
-            DataSet = qFuncionarios
-            DataField = 'rg'
-            Transparent = False
-            WordWrap = True
-            FontSize = 10
-          end
-          object QRLabel13: TQRLabel
-            Left = 112
-            Top = 232
+            Left = 8
+            Top = 233
             Width = 44
             Height = 17
             Frame.Color = clBlack
@@ -5982,8 +5784,8 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Frame.DrawRight = False
             Size.Values = (
               44.979166666666670000
-              296.333333333333300000
-              613.833333333333300000
+              21.166666666666670000
+              616.479166666666700000
               116.416666666666700000)
             Alignment = taLeftJustify
             AlignToBand = False
@@ -5995,36 +5797,110 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             WordWrap = True
             FontSize = 10
           end
-          object QRDBText12: TQRDBText
-            Left = 112
-            Top = 251
+          object QRDBText10: TQRDBText
+            Left = 8
+            Top = 252
             Width = 32
-            Height = 17
+            Height = 18
             Frame.Color = clBlack
             Frame.DrawTop = False
             Frame.DrawBottom = False
             Frame.DrawLeft = False
             Frame.DrawRight = False
             Size.Values = (
-              44.979166666666670000
-              296.333333333333300000
-              664.104166666666700000
+              47.625000000000000000
+              21.166666666666670000
+              666.750000000000000000
               84.666666666666670000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
             Color = clWhite
-            DataSet = qFuncionarios
+            DataSet = qPessoas
             DataField = 'email'
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
-          object QRLabel14: TQRLabel
+          object QRLabel13: TQRLabel
+            Left = 640
+            Top = 8
+            Width = 36
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              1693.333333333333000000
+              21.166666666666670000
+              95.250000000000000000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Caption = 'SEXO'
+            Color = clWhite
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText11: TQRDBText
+            Left = 640
+            Top = 27
+            Width = 29
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              1693.333333333333000000
+              71.437500000000000000
+              76.729166666666670000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qPessoas
+            DataField = 'sexo'
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+        end
+        object qrSubFicha: TQRSubDetail
+          Left = 38
+          Top = 473
+          Width = 718
+          Height = 232
+          Frame.Color = clBlack
+          Frame.DrawTop = True
+          Frame.DrawBottom = False
+          Frame.DrawLeft = False
+          Frame.DrawRight = False
+          Frame.Style = psDot
+          AlignToBottom = False
+          Color = clWhite
+          ForceNewColumn = False
+          ForceNewPage = False
+          Size.Values = (
+            613.833333333333300000
+            1899.708333333333000000)
+          Master = qrFicha
+          DataSet = qHistorico
+          PrintBefore = False
+          PrintIfEmpty = True
+          object QRLabel22: TQRLabel
             Left = 8
-            Top = 280
-            Width = 93
+            Top = 8
+            Width = 35
             Height = 17
             Frame.Color = clBlack
             Frame.DrawTop = False
@@ -6034,33 +5910,186 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Size.Values = (
               44.979166666666670000
               21.166666666666670000
-              740.833333333333300000
-              246.062500000000000000)
+              21.166666666666670000
+              92.604166666666670000)
             Alignment = taLeftJustify
             AlignToBand = False
             AutoSize = True
             AutoStretch = False
-            Caption = 'OBSERVA'#199#195'O'
+            Caption = 'DATA'
             Color = clWhite
             Transparent = False
             WordWrap = True
             FontSize = 10
           end
-          object QRDBRichText1: TQRDBRichText
-            Left = 8
-            Top = 299
-            Width = 703
-            Height = 72
+          object QRLabel23: TQRLabel
+            Left = 96
+            Top = 8
+            Width = 38
+            Height = 17
             Frame.Color = clBlack
             Frame.DrawTop = False
             Frame.DrawBottom = False
             Frame.DrawLeft = False
             Frame.DrawRight = False
             Size.Values = (
-              190.500000000000000000
+              44.979166666666670000
+              254.000000000000000000
               21.166666666666670000
-              791.104166666666700000
-              1860.020833333333000000)
+              100.541666666666700000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Caption = 'HORA'
+            Color = clWhite
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRLabel24: TQRLabel
+            Left = 192
+            Top = 8
+            Width = 52
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              508.000000000000000000
+              21.166666666666670000
+              137.583333333333300000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Caption = 'MEDICO'
+            Color = clWhite
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRLabel25: TQRLabel
+            Left = 8
+            Top = 88
+            Width = 89
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              21.166666666666670000
+              232.833333333333300000
+              235.479166666666700000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Caption = 'DIAGNOSTICO'
+            Color = clWhite
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText12: TQRDBText
+            Left = 8
+            Top = 32
+            Width = 26
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              21.166666666666670000
+              84.666666666666670000
+              68.791666666666670000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qHistorico
+            DataField = 'data'
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText13: TQRDBText
+            Left = 96
+            Top = 32
+            Width = 26
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              254.000000000000000000
+              84.666666666666670000
+              68.791666666666670000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qHistorico
+            DataField = 'hora'
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBText14: TQRDBText
+            Left = 192
+            Top = 32
+            Width = 43
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              508.000000000000000000
+              84.666666666666670000
+              113.770833333333300000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Color = clWhite
+            DataSet = qHistorico
+            DataField = 'medico'
+            Transparent = False
+            WordWrap = True
+            FontSize = 10
+          end
+          object QRDBRichText1: TQRDBRichText
+            Left = 8
+            Top = 107
+            Width = 689
+            Height = 110
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              291.041666666666700000
+              21.166666666666670000
+              283.104166666666700000
+              1822.979166666667000000)
             Alignment = taLeftJustify
             AutoStretch = False
             Color = clWindow
@@ -6069,134 +6098,237 @@ inherited frmCadPesFuncionario: TfrmCadPesFuncionario
             Font.Height = -13
             Font.Name = 'Arial'
             Font.Style = []
-            DataField = 'observacao'
-            DataSet = qFuncionarios
+            DataField = 'consulta'
+            DataSet = qHistorico
+          end
+        end
+        object PageFooterBand1: TQRBand
+          Left = 38
+          Top = 705
+          Width = 718
+          Height = 40
+          Frame.Color = clBlack
+          Frame.DrawTop = True
+          Frame.DrawBottom = False
+          Frame.DrawLeft = False
+          Frame.DrawRight = False
+          AlignToBottom = False
+          Color = clWhite
+          ForceNewColumn = False
+          ForceNewPage = False
+          Size.Values = (
+            105.833333333333300000
+            1899.708333333333000000)
+          BandType = rbPageFooter
+          object QRLabel26: TQRLabel
+            Left = 8
+            Top = 8
+            Width = 81
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              21.166666666666670000
+              21.166666666666670000
+              214.312500000000000000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            AutoStretch = False
+            Caption = 'SISMEDICO V1.0'
+            Color = clWhite
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+            Transparent = False
+            WordWrap = True
+            FontSize = 8
+          end
+          object QRSysData2: TQRSysData
+            Left = 648
+            Top = 8
+            Width = 8
+            Height = 17
+            Frame.Color = clBlack
+            Frame.DrawTop = False
+            Frame.DrawBottom = False
+            Frame.DrawLeft = False
+            Frame.DrawRight = False
+            Size.Values = (
+              44.979166666666670000
+              1714.500000000000000000
+              21.166666666666670000
+              21.166666666666670000)
+            Alignment = taLeftJustify
+            AlignToBand = False
+            AutoSize = True
+            Color = clWhite
+            Data = qrsPageNumber
+            Transparent = False
+            FontSize = 10
           end
         end
       end
     end
   end
   inherited StatusBar1: TStatusBar
-    Top = 600
-    Width = 780
+    Top = 544
+    Width = 774
   end
   inherited dspadrao: TDataSource
-    DataSet = qFuncionarios
+    DataSet = qPessoas
   end
-  object qFuncionarios: TADOQuery
+  object qPessoas: TADOQuery
     Connection = dmCentral.conecta
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select * from funcionarios')
+      'select * from pessoas')
     Left = 700
     Top = 28
-    object qFuncionariosfuncao: TStringField
-      DisplayLabel = 'FUN'#199#195'O'
-      FieldName = 'funcao'
-      Size = 10
-    end
-    object qFuncionariosconselho: TIntegerField
-      DisplayLabel = 'CONSELHO'
-      FieldName = 'conselho'
-      DisplayFormat = '0000000000'
-    end
-    object qFuncionarioslogin: TStringField
-      DisplayLabel = 'LOGIN'
-      FieldName = 'login'
-      Size = 50
-    end
-    object qFuncionariosobservacao: TStringField
-      DisplayLabel = 'OBSERVA'#199#195'O'
-      FieldName = 'observacao'
-      Size = 250
-    end
-    object qFuncionariossenha: TStringField
-      DisplayLabel = 'SENHA'
-      FieldName = 'senha'
-      Size = 100
-    end
-    object qFuncionariosid: TAutoIncField
-      DisplayLabel = 'CODIGO'
+    object qPessoasid: TAutoIncField
       FieldName = 'id'
       ReadOnly = True
       DisplayFormat = '000000'
     end
-    object qFuncionariosnome: TStringField
-      DisplayLabel = 'NOME'
+    object qPessoasnome: TStringField
       FieldName = 'nome'
       Size = 100
     end
-    object qFuncionariosendereco: TStringField
-      DisplayLabel = 'ENDERE'#199'O'
+    object qPessoasendereco: TStringField
       FieldName = 'endereco'
       Size = 100
     end
-    object qFuncionariosbairro: TStringField
-      DisplayLabel = 'BAIRRO'
+    object qPessoasbairro: TStringField
       FieldName = 'bairro'
     end
-    object qFuncionarioscidade: TStringField
-      DisplayLabel = 'CIDADE'
+    object qPessoascidade: TStringField
       FieldName = 'cidade'
       Size = 50
     end
-    object qFuncionariosestado: TStringField
-      DisplayLabel = 'UF'
+    object qPessoasestado: TStringField
       FieldName = 'estado'
       FixedChar = True
       Size = 2
     end
-    object qFuncionarioscep: TIntegerField
-      Alignment = taCenter
-      DisplayLabel = 'CEP'
-      FieldName = 'cep'
-      DisplayFormat = '##.###-###'
-    end
-    object qFuncionariostelefone: TIntegerField
-      DisplayLabel = 'TELEFONE'
-      FieldName = 'telefone'
-      DisplayFormat = '(##)####-####'
-    end
-    object qFuncionariosrg: TIntegerField
-      DisplayLabel = 'RG'
+    object qPessoasrg: TIntegerField
       FieldName = 'rg'
-      DisplayFormat = '##.###.###'
     end
-    object qFuncionariosemail: TStringField
-      DisplayLabel = 'E-MAIL'
+    object qPessoasemail: TStringField
       FieldName = 'email'
       Size = 100
     end
-    object qFuncionarioscadastrado: TDateTimeField
-      DefaultExpression = 'CADASTRADO'
+    object qPessoascadastrado: TDateTimeField
       FieldName = 'cadastrado'
     end
-    object qFuncionariosatualizado: TDateTimeField
-      DefaultExpression = 'ATUALIZADO'
+    object qPessoasatualizado: TDateTimeField
       FieldName = 'atualizado'
     end
-    object qFuncionariossexo: TStringField
-      DefaultExpression = 'SEXO'
+    object qPessoassexo: TStringField
       FieldName = 'sexo'
       FixedChar = True
       Size = 1
     end
-    object qFuncionariosespecialidade: TStringField
-      DefaultExpression = 'ESPECIALIDADE'
-      FieldName = 'especialidade'
-    end
-    object qFuncionarioscelular: TStringField
-      FieldName = 'celular'
-      EditMask = '!\(99\)0-0000-0000;1;_'
-      Size = 14
-      Transliterate = False
-    end
-    object qFuncionarioscpf: TStringField
+    object qPessoascpf: TStringField
       FieldName = 'cpf'
-      EditMask = '000\.000\.000\-00;1;_'
-      Size = 14
+      EditMask = '000\.000\.000\-00;0;_'
+      Size = 15
       Transliterate = False
     end
+    object qPessoascep: TStringField
+      FieldName = 'cep'
+      EditMask = '00.000\-999;0;_'
+      Size = 8
+      Transliterate = False
+    end
+    object qPessoastelefone: TStringField
+      FieldName = 'telefone'
+      EditMask = '!\(99\)0000-0000;0;_'
+      Size = 10
+      Transliterate = False
+    end
+    object qPessoascelular: TStringField
+      FieldName = 'celular'
+      EditMask = '!\(99\)0-0000-0000;0;_'
+      Size = 11
+      Transliterate = False
+    end
+  end
+  object qHistorico: TADOQuery
+    Connection = dmCentral.conecta
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'pId'
+        Attributes = [paSigned, paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select convert(varchar, a.datahora, 103) data, '
+      'convert(varchar(5), datahora, 108) hora,'
+      'UPPER(f.nome) medico, a.paciente_id,f.especialidade, '
+      'UPPER(ISNULL(c.diagnostico, '#39'CONSULTA N'#194'O REALIZADA'#39')) consulta,'
+      'UPPER(ISNULL(r.medicamento, '#39'SEM RECEITA'#39')) receita,'
+      'UPPER(ISNULL(e.exame, '#39'SEM EXAMES'#39')) exame from agenda a '
+      'inner join consultas c on c.agenda_id = a.id '
+      'inner join funcionarios f on f.id = a.funcionario_id '
+      'left join receitas r on r.consulta_id = c.agenda_id'
+      'left join exames e on e.consulta_id = c.agenda_id'
+      'where a.paciente_id = :pId'
+      'order by data, hora, medico ')
+    Left = 700
+    Top = 60
+    object qHistoricodata: TStringField
+      FieldName = 'data'
+      ReadOnly = True
+      Size = 30
+    end
+    object qHistoricohora: TStringField
+      FieldName = 'hora'
+      ReadOnly = True
+      Size = 5
+    end
+    object qHistoricopaciente_id: TIntegerField
+      FieldName = 'paciente_id'
+    end
+    object qHistoricomedico: TStringField
+      FieldName = 'medico'
+      ReadOnly = True
+      Size = 133
+    end
+    object qHistoricoespecialidade: TStringField
+      FieldName = 'especialidade'
+      ReadOnly = True
+    end
+    object qHistoricoconsulta: TStringField
+      FieldName = 'consulta'
+      ReadOnly = True
+      Size = 250
+    end
+    object qHistoricoreceita: TStringField
+      FieldName = 'receita'
+      ReadOnly = True
+      Size = 100
+    end
+    object qHistoricoexame: TStringField
+      FieldName = 'exame'
+      ReadOnly = True
+      Size = 150
+    end
+  end
+  object dsHistorico: TDataSource
+    DataSet = qHistorico
+    Left = 732
+    Top = 60
   end
 end
